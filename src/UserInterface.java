@@ -48,6 +48,22 @@ public class UserInterface {
             }
         }
     }
+    public void payFee(){
+        int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
+        Member memberFound = null;
+        for (Member member : clubManagement.getMembers()){
+            if (member.getMemberId() == memberId){
+                memberFound = member;
+            }
+        }
+        PaymentResult result = clubManagement.makePayment(memberFound);
+        switch (result){
+            case PASSIVE -> IO.println("Passiv: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
+            case YOUTH_ACTIVE -> IO.println("Ung: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
+            case SENIOR_ACTIVE -> IO.println("Senior: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
+            case SENIOR_ACTIVE_DISCOUNT -> IO.println("Seniorrabat: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
+
+        }
     private void createMember(){
         String name = IO.readln("Indtast navn: ");
         int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
