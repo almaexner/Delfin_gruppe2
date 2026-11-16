@@ -44,6 +44,7 @@ public class UserInterface {
                     "3. Betal kontigent"));
             switch (userInput){
                 case 1 -> createMember();
+                case 2 -> changeMembershipStatus();
             }
         }
     }
@@ -89,8 +90,17 @@ public class UserInterface {
         }
     }
 
-    private void changeMembershipStatus(Member member){
+    private void changeMembershipStatus(){
+        int memberId = Integer.parseInt(IO.readln("Indtast medlems id: "));
+        Member member = clubManagement.findMemberByMemberId(memberId);
+
+        if (member == null){
+            IO.println("Der findes intet medlem med dette medlems id.");
+            return;
+        }
+
         MembershipType membershipType = chooseMembershipStatus();
         member.setMembershipType(membershipType);
+        IO.println("Medlemsstatus er ændret for: " + member.getName());
     }
 }
