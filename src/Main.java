@@ -1,5 +1,7 @@
 public class Main {
     void main(){
-        IO.println("Hello, World");
+        UserInterface ui = new UserInterface();
+
+        ui.run();
     }
 }

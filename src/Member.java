@@ -37,7 +37,17 @@ public class Member implements Comparable<Member>{
     public int calculateAge(LocalDate dateOfBirth){
         LocalDate dateNow = LocalDate.now();
         Period periodBetween = Period.between(dateOfBirth, dateNow);
-        return periodBetween.getYears();
+        int age = periodBetween.getYears();
+        return age;
+    }
+
+    public SwimmerAgeType setSwimmerAgeType(Member member){
+        int age = calculateAge(dateOfBirth);
+
+        if (age < 18){
+            return SwimmerAgeType.JUNIOR;
+        }
+        return SwimmerAgeType.SENIOR;
     }
     @Override
     public String toString(){

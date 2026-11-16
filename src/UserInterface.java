@@ -78,6 +78,8 @@ public class UserInterface {
 
         Member member = new Member(name, memberId, birthday, membershipType);
 
+        member.setSwimmerAgeType(member);
+
         clubManagement.addMember(member);
     }
 
