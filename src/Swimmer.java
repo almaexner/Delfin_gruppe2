@@ -19,4 +19,5 @@ public abstract class Swimmer {
     public String toString(){
         return member + " " + swimmerAgeType + " " + disciplin;
     }
+
 }
