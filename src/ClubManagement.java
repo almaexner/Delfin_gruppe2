@@ -12,11 +12,11 @@ public class ClubManagement {
 
     }
 
-    public void addMember(Member member) {
-    public void addFee(MemberFee memberFee){
+    public void addFee(MemberFee memberFee) {
         fees.add(memberFee);
     }
-    public void addMember(Member member){
+
+    public void addMember(Member member) {
         members.add(member);
     }
 
@@ -44,47 +44,52 @@ public class ClubManagement {
         for (Member member : members) {
             if (member.getMemberId() == memberId) {
                 return member;
-    public List<MemberFee> getFees(){
+            }
+        }
+        return null;
+    }
+
+    public List<MemberFee> getFees() {
         return fees;
     }
-    public PaymentResult makePayment(Member member){
+
+    public PaymentResult makePayment(Member member) {
         int memberAge = member.calculateAge(member.getDateOfBirth());
         MembershipType membershipType = member.getMembershipType();
         PassiveFee passiveFee = new PassiveFee();
         YouthFee youthFee = new YouthFee();
         SeniorFee seniorFee = new SeniorFee(memberAge);
-        if (membershipType.equals(MembershipType.ACTIVE) && (memberAge < 18)){
+        if (membershipType.equals(MembershipType.ACTIVE) && (memberAge < 18)) {
             addFee(new MemberFee(member, youthFee.calculateFee(), youthFee.calculateDueDate(LocalDate.now())));
             return PaymentResult.YOUTH_ACTIVE;
         }
-        if (membershipType.equals(MembershipType.ACTIVE) && (memberAge <= 60)){
+        if (membershipType.equals(MembershipType.ACTIVE) && (memberAge <= 60)) {
             addFee(new MemberFee(member, youthFee.calculateFee(), seniorFee.calculateDueDate(LocalDate.now())));
             return PaymentResult.SENIOR_ACTIVE;
         }
-        if (membershipType.equals(MembershipType.ACTIVE) && (memberAge > 60)){
+        if (membershipType.equals(MembershipType.ACTIVE) && (memberAge > 60)) {
             addFee(new MemberFee(member, seniorFee.calculateFee(), seniorFee.calculateDueDate(LocalDate.now())));
             return PaymentResult.SENIOR_ACTIVE_DISCOUNT;
-        }
-        else {
+        } else {
             addFee(new MemberFee(member, passiveFee.calculateFee(), passiveFee.calculateDueDate(LocalDate.now())));
             return PaymentResult.PASSIVE;
         }
     }
-    public MemberFee getMemberFee(int memberId){
+
+    public MemberFee getMemberFee(int memberId) {
         Member memberFound = null;
-        for (Member member : members){
-            if (member.getMemberId() == memberId){
+        for (Member member : members) {
+            if (member.getMemberId() == memberId) {
                 memberFound = member;
             }
         }
-        if (memberFound != null){
-            for (MemberFee memberFee : fees){
-                if (memberFee.getMember().equals(memberFound)){
+        if (memberFound != null) {
+            for (MemberFee memberFee : fees) {
+                if (memberFee.getMember().equals(memberFound)) {
                     return memberFee;
                 }
             }
         }
         return null;
     }
-
 }
