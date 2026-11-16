@@ -37,5 +37,14 @@ public class Member {
         Period periodBetween = Period.between(dateOfBirth, dateNow);
         return periodBetween.getYears();
     }
+    @Override
+    public String toString(){
+        return String.format("""
+                %s (ID: %d)
+                Medlemsskab: %s""", name, memberId, membershipType);
+    }
+    public int compareTo(Member o){
+        return Integer.compare(this.memberId, o.memberId);
+    }
 
 }
