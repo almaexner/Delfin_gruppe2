@@ -1,11 +1,13 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 public class Member implements Comparable<Member>{
     private final String name;
     private final int memberId;
     private final LocalDate dateOfBirth;
     private MembershipType membershipType;
+    private List<MemberFee> memberFees;
 
     public Member(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType){
         this.name = name;
