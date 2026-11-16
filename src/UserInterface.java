@@ -42,12 +42,14 @@ public class UserInterface {
                     "1. Opret ny svømmer" +
                     "2. Ændrer medlemsstatus (aktiv/passiv)" +
                     "3. Betal kontigent"));
-            switch (userInput){
+            switch (userInput) {
                 case 1 -> createMember();
                 case 2 -> changeMembershipStatus();
+                case 3 -> payFee();
             }
         }
     }
+
     public void payFee() {
         int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
         Member memberFound = null;
@@ -56,7 +58,6 @@ public class UserInterface {
                 memberFound = member;
             }
         }
-
         PaymentResult result = clubManagement.makePayment(memberFound);
         switch (result) {
             case PASSIVE -> IO.println("Passiv: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
@@ -68,7 +69,8 @@ public class UserInterface {
 
         }
     }
-    private void createMember(){
+
+    private void createMember() {
         String name = IO.readln("Indtast navn: ");
         int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
         LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
@@ -79,12 +81,12 @@ public class UserInterface {
         clubManagement.addMember(member);
     }
 
-    private MembershipType chooseMembershipStatus(){
+    private MembershipType chooseMembershipStatus() {
         while (true) {
             String userInput = IO.readln("Vælg aktivitetsstatus: " +
                     "1. Aktiv" +
                     "2. Passiv");
-            if (userInput.equals("1")){
+            if (userInput.equals("1")) {
                 return MembershipType.ACTIVE;
             } else if (userInput.equals("2")) {
                 return MembershipType.PASSIVE;
@@ -94,11 +96,11 @@ public class UserInterface {
         }
     }
 
-    private void changeMembershipStatus(){
+    private void changeMembershipStatus() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlems id: "));
         Member member = clubManagement.findMemberByMemberId(memberId);
 
-        if (member == null){
+        if (member == null) {
             IO.println("Der findes intet medlem med dette medlems id.");
             return;
         }
