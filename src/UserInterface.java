@@ -3,6 +3,10 @@ import java.time.LocalDate;
 public class UserInterface {
     private ClubManagement clubManagement;
 
+    public UserInterface(ClubManagement clubManagement) {
+        this.clubManagement = clubManagement;
+    }
+
     public void run() {
         boolean isRunning = true;
         while (isRunning) {
