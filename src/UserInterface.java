@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class UserInterface {
 
     public void run() {
@@ -40,5 +42,10 @@ public class UserInterface {
                     "2. Ændrer medlemsstatus (aktiv/passiv)" +
                     "3. Betal kontigent"));
         }
+    }
+    private void createMember(){
+        String name = IO.readln("Indtast navn: ");
+        int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
+        LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
     }
 }
