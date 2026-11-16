@@ -1,14 +1,10 @@
-public class FitnessSwimmer extends Swimmer{
+import java.time.LocalDate;
+
+public class FitnessSwimmer extends Member{
     SwimmerType swimmerType;
-    Disciplin disciplin;
 
-    public FitnessSwimmer(Member member, SwimmerAgeType swimmerAgeType, Disciplin disciplin, SwimmerType swimmerType) {
-        super(member, swimmerAgeType);
+    public FitnessSwimmer(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerType swimmerType) {
+        super(name, memberId, dateOfBirth, membershipType);
         this.swimmerType = swimmerType;
-        this.disciplin = disciplin;
-    }
-
-    public Disciplin getDisciplin() {
-        return disciplin;
     }
 }

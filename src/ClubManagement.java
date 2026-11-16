@@ -4,9 +4,7 @@ import java.util.List;
 
 public class ClubManagement {
     List<Member> members = new ArrayList<>();
-    List<Swimmer> swimmers = new ArrayList<>();
     List<MemberFee> fees = new ArrayList<>();
-    UserInterface ui;
 
     public ClubManagement() {
 
@@ -24,20 +22,9 @@ public class ClubManagement {
         members.remove(member);
     }
 
-    public void addSwimmer(Swimmer swimmer) {
-        swimmers.add(swimmer);
-    }
-
-    public void removeSwimmer(Swimmer swimmer) {
-        swimmers.remove(swimmer);
-    }
 
     public List<Member> getMembers() {
         return members;
-    }
-
-    public List<Swimmer> getSwimmers() {
-        return swimmers;
     }
 
     public Member findMemberByMemberId(int memberId) {
