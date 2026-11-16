@@ -1,5 +1,8 @@
+import java.time.LocalDate;
+
 public class UserInterface {
-    ClubManagement clubManagement;
+    private ClubManagement clubManagement;
+
     public void run() {
         boolean isRunning = true;
         while (isRunning) {
@@ -39,6 +42,9 @@ public class UserInterface {
                     "1. Opret ny svømmer" +
                     "2. Ændrer medlemsstatus (aktiv/passiv)" +
                     "3. Betal kontigent"));
+            switch (userInput){
+                case 1 -> createMember();
+            }
         }
     }
     public void payFee(){
@@ -57,5 +63,34 @@ public class UserInterface {
             case SENIOR_ACTIVE_DISCOUNT -> IO.println("Seniorrabat: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
 
         }
+    private void createMember(){
+        String name = IO.readln("Indtast navn: ");
+        int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
+        LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
+        MembershipType membershipType = chooseMembershipStatus();
+
+        Member member = new Member(name, memberId, birthday, membershipType);
+
+        clubManagement.addMember(member);
+    }
+
+    private MembershipType chooseMembershipStatus(){
+        while (true) {
+            String userInput = IO.readln("Vælg aktivitetsstatus: " +
+                    "1. Aktiv" +
+                    "2. Passiv");
+            if (userInput.equals("1")){
+                return MembershipType.ACTIVE;
+            } else if (userInput.equals("2")) {
+                return MembershipType.PASSIVE;
+            } else {
+                IO.println("Ugyldigt valg");
+            }
+        }
+    }
+
+    private void changeMembershipStatus(Member member){
+        MembershipType membershipType = chooseMembershipStatus();
+        member.setMembershipType(membershipType);
     }
 }
