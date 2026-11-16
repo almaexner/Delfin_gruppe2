@@ -4,7 +4,7 @@ import java.util.List;
 public class ClubManagement {
     List<Member> members = new ArrayList<>();
     List<Swimmer> swimmers = new ArrayList<>();
-    // ConsoleUI ui = new ConsoleUI
+    UserInterface ui;
 
     public ClubManagement(){
 
@@ -27,5 +27,6 @@ public class ClubManagement {
     public List<Swimmer> getSwimmers(){
         return swimmers;
     }
+
 
 }
