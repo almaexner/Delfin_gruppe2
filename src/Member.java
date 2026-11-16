@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Member {
+public class Member implements Comparable<Member>{
     private final String name;
     private final int memberId;
     private final LocalDate dateOfBirth;
@@ -43,6 +43,7 @@ public class Member {
                 %s (ID: %d)
                 Medlemsskab: %s""", name, memberId, membershipType);
     }
+    @Override
     public int compareTo(Member o){
         return Integer.compare(this.memberId, o.memberId);
     }
