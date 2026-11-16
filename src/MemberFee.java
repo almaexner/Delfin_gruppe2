@@ -14,4 +14,10 @@ public class MemberFee {
     public Member getMember() {
         return member;
     }
+    @Override
+    public String toString(){
+        return "Regning for " + member + "\n" +
+                "Beløb: " + fee + "\n" +
+                "Betalingsfrist: " + dueDate;
+    }
 }

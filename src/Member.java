@@ -43,7 +43,7 @@ public class Member implements Comparable<Member>{
     public String toString(){
         return String.format("""
                 %s (ID: %d)
-                Medlemsskab: %s""", name, memberId, membershipType);
+                Medlemskab: %s""", name, memberId, membershipType);
     }
     @Override
     public int compareTo(Member o){
