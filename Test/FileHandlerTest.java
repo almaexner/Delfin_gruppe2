@@ -18,6 +18,7 @@ public class FileHandlerTest {
     ClubManagement clubManagement;
     FileHandler fileHandler;
     List<Member> members;
+    List<FitnessSwimmer> fitnessSwimmers;
     Path path;
 
     @BeforeEach
@@ -50,5 +51,16 @@ public class FileHandlerTest {
         //Assert
         assertTrue(Files.exists(path));
         assertFalse(membersFromFile.isEmpty());
+    }
+    @Test
+    public void testLoadFitnessSwimmerFromFile(){
+        //Arrange
+        fitnessSwimmers = List.of(
+                new FitnessSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR, SwimmerType.FITNESS),
+                new FitnessSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR, SwimmerType.FITNESS),
+                new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR, SwimmerType.FITNESS)
+        );
+        //Act
+        fileHandler.sa
     }
 }

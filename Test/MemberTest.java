@@ -64,6 +64,7 @@ public class MemberTest {
     @Test
     public void getMemberSwimmingAgeType(){
         //Act
+        member.setSwimmerAgeType();
         SwimmerAgeType result = member.getSwimmerAgeType();
 
         //Assert

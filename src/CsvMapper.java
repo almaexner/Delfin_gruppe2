@@ -19,7 +19,8 @@ public class CsvMapper {
             return  member.getName()
                     + separator + member.getMemberId()
                     + separator + member.getDateOfBirth()
-                    + separator + member.getMembershipType();
+                    + separator + member.getMembershipType()
+                    + separator + member.getSwimmerAgeType();
         }
 
         public FitnessSwimmer csvToFitnessSwimmer(String line) {
