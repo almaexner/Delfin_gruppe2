@@ -30,8 +30,7 @@ public class CsvMapper {
         LocalDate dateOfBirth = LocalDate.parse(tokens[2]);
         MembershipType membershipType = MembershipType.valueOf(tokens[3]);
         SwimmerAgeType swimmerAgeType = SwimmerAgeType.valueOf(tokens[4]);
-        SwimmerType swimmerType = SwimmerType.valueOf(tokens[5]);
-        return new FitnessSwimmer(name, memberId, dateOfBirth, membershipType, swimmerAgeType, swimmerType);
+        return new FitnessSwimmer(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
     }
 
         public String fitnessSwimmerToCsv(FitnessSwimmer fitnessSwimmer) {
@@ -50,8 +49,7 @@ public class CsvMapper {
         MembershipType membershipType = MembershipType.valueOf(tokens[3]);
         SwimmerAgeType swimmerAgeType = SwimmerAgeType.valueOf(tokens[4]);
         Disciplin disciplin = Disciplin.valueOf(tokens[5]);
-        SwimmerType swimmerType = SwimmerType.valueOf(tokens[6]);
-        return new CompetetiveSwimmer(name, memberId, dateOfBirth, membershipType, swimmerAgeType, disciplin, swimmerType);
+        return new CompetetiveSwimmer(name, memberId, dateOfBirth, membershipType, swimmerAgeType, disciplin);
 
         }
 
