@@ -1,10 +1,10 @@
 import java.time.LocalDate;
 
 public class FitnessSwimmer extends Member{
-    SwimmerType swimmerType;
+    private SwimmerType swimmerType;
 
-    public FitnessSwimmer(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerType swimmerType) {
-        super(name, memberId, dateOfBirth, membershipType);
+    public FitnessSwimmer(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerAgeType swimmerAgeType, SwimmerType swimmerType) {
+        super(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
         this.swimmerType = swimmerType;
     }
 }

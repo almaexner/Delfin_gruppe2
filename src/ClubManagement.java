@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClubManagement {
-    List<Member> members = new ArrayList<>();
-    List<MemberFee> fees = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();
+    private List<MemberFee> fees = new ArrayList<>();
 
     public ClubManagement() {
 
