@@ -36,7 +36,9 @@ public class Member implements Comparable<Member>{
         this.membershipType = membershipType;
     }
 
-
+    public SwimmerAgeType getSwimmerAgeType(){
+        return swimmerAgeType;
+    }
     public int calculateAge(LocalDate dateOfBirth){
         LocalDate dateNow = LocalDate.now();
         Period periodBetween = Period.between(dateOfBirth, dateNow);
