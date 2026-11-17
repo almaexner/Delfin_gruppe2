@@ -5,7 +5,7 @@ import java.util.List;
 public class Member implements Comparable<Member>{
     private final String name;
     private final int memberId;
-    private final LocalDate dateOfBirth;
+    private LocalDate dateOfBirth;
     private MembershipType membershipType;
     private SwimmerAgeType swimmerAgeType;
     private List<MemberFee> memberFees;
@@ -30,6 +30,12 @@ public class Member implements Comparable<Member>{
     }
     public MembershipType getMembershipType(){
         return membershipType;
+    }
+    public SwimmerAgeType getSwimmerAgeType(){
+        return swimmerAgeType;
+    }
+    public void setDateOfBirth(LocalDate localDate){
+        this.dateOfBirth = localDate;
     }
     //Setters
     public void setMembershipType(MembershipType membershipType){
