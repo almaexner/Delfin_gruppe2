@@ -10,10 +10,10 @@ public class UserInterface {
     public void run() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Vælg bruger: " +
-                    "1. Ledelse" +
-                    "2. Kasserer" +
-                    "3. Medlem"));
+            int userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
+                    "1. Ledelse\n" +
+                    "2. Kasserer\n" +
+                    "3. Medlem\n"));
             switch (userInput) {
                 case 1 -> managementMenu();
                 case 2 -> financeMenu();
@@ -31,9 +31,9 @@ public class UserInterface {
     private void financeMenu() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Indtast dit valg: " +
-                    "1. Se betalinger" +
-                    "2. Medlemmer i restance" +
+            int userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
+                    "1. Se betalinger\n" +
+                    "2. Medlemmer i restance\n" +
                     "3. "));
         }
 
@@ -43,9 +43,9 @@ public class UserInterface {
         boolean isRunning = true;
         while (isRunning) {
             int userInput = Integer.parseInt(IO.readln("Indtast dit valg: " +
-                    "1. Opret ny svømmer" +
-                    "2. Ændrer medlemsstatus (aktiv/passiv)" +
-                    "3. Betal kontigent"));
+                    "1. Opret ny svømmer\n" +
+                    "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
+                    "3. Betal kontigent\n"));
             switch (userInput) {
                 case 1 -> createMember();
                 case 2 -> changeMembershipStatus();
@@ -89,9 +89,9 @@ public class UserInterface {
 
     private MembershipType chooseMembershipStatus() {
         while (true) {
-            String userInput = IO.readln("Vælg aktivitetsstatus: " +
-                    "1. Aktiv" +
-                    "2. Passiv");
+            String userInput = IO.readln("Vælg aktivitetsstatus: \n" +
+                    "1. Aktiv\n" +
+                    "2. Passiv\n");
             if (userInput.equals("1")) {
                 return MembershipType.ACTIVE;
             } else if (userInput.equals("2")) {
