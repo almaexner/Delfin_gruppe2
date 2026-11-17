@@ -94,4 +94,21 @@ public class ClubManagementTest {
         assertNotEquals(expected, member1);
     }
 
+    @Test
+    void makePaymentSeniorFeeTest(){
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member);
+
+        //Act
+        PaymentResult expected = cM.makePayment(member);
+
+        //Assert
+        assertEquals(expected, PaymentResult.SENIOR_ACTIVE);
+        assertEquals(1, cM.getFees().size());
+        assertEquals(1600, cM.getMemberFee(1).getFee()); //Check om medlemsnr1 betaler 1600,-
+    }
+
 }
