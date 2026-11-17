@@ -10,8 +10,9 @@ public class CsvMapper {
         int memberId = Integer.parseInt(tokens[1]);
         LocalDate dateOfBirth = LocalDate.parse(tokens[2]);
         MembershipType membershipType = MembershipType.valueOf(tokens[3]);
+        SwimmerAgeType swimmerAgeType = SwimmerAgeType.valueOf(tokens[4]);
 
-        return new Member(name, memberId, dateOfBirth, membershipType);
+        return new Member(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
     }
 
         public String memberToCsv(Member member) {
