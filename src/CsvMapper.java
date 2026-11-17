@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class CvsMapper {
+public class CsvMapper {
 
     private String separator = ",";
 
