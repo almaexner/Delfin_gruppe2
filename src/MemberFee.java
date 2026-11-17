@@ -1,9 +1,9 @@
 import java.time.LocalDate;
 
 public class MemberFee {
-    LocalDate dueDate;
-    Member member;
-    int fee;
+    private LocalDate dueDate;
+    private Member member;
+    private int fee;
 
     public MemberFee(Member member, int fee, LocalDate dueDate){
         this.member = member;

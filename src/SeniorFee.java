@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class SeniorFee implements Fee {
-    int age;
+    private int age;
 
     public SeniorFee(int age){
         this.age = age;
