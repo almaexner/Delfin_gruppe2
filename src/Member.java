@@ -7,14 +7,17 @@ public class Member implements Comparable<Member>{
     private final int memberId;
     private final LocalDate dateOfBirth;
     private MembershipType membershipType;
+    private SwimmerAgeType swimmerAgeType;
     private List<MemberFee> memberFees;
 
-    public Member(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType){
+    public Member(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerAgeType swimmerAgeType){
         this.name = name;
         this.memberId = memberId;
         this.dateOfBirth = dateOfBirth;
         this.membershipType = membershipType;
+        this.swimmerAgeType = swimmerAgeType;
     }
+
     //Getters
     public int getMemberId(){
         return memberId;
@@ -41,14 +44,17 @@ public class Member implements Comparable<Member>{
         return age;
     }
 
-    public SwimmerAgeType setSwimmerAgeType(Member member){
+    public void setSwimmerAgeType(){
         int age = calculateAge(dateOfBirth);
 
         if (age < 18){
-            return SwimmerAgeType.JUNIOR;
+            this.swimmerAgeType = SwimmerAgeType.JUNIOR;
         }
-        return SwimmerAgeType.SENIOR;
+        else {
+            this.swimmerAgeType = SwimmerAgeType.SENIOR;
+        }
     }
+
     @Override
     public String toString(){
         return String.format("""
