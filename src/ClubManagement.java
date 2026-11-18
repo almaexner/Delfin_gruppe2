@@ -125,7 +125,7 @@ public class ClubManagement {
 
     public boolean doesMemberIdExist(int memberId) {
         for (Member member : members) {
-            if (member.getMemberId() == memberId) {
+            if (member.getMemberId() != memberId) {
                 return true;
             }
         }

@@ -56,6 +56,9 @@ public class UserInterface {
                 case 1 -> createMember();
                 case 2 -> changeMembershipStatus();
                 case 3 -> payFee();
+                case 0 -> {
+                    return;
+                }
             }
         }
     }
@@ -85,14 +88,9 @@ public class UserInterface {
         int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
         LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
         MembershipType membershipType = chooseMembershipStatus();
-        if (clubManagement.doesMemberIdExist(memberId)){
             Member member = new Member(name, memberId, birthday, membershipType, null);
             member.setSwimmerAgeType();
-
             clubManagement.addMember(member);
-        } else {
-            IO.println("Medlemsnummer findes allerede. Prøv igen");
-        }
     }
 
     private MembershipType chooseMembershipStatus() {
