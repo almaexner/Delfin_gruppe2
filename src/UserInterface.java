@@ -18,7 +18,8 @@ public class UserInterface {
             switch (userInput) {
                 case 1 -> managementMenu();
                 case 2 -> financeMenu();
-                case 3 -> memberMenu();
+                case 3 -> trainerMenu();
+                case 4 -> memberMenu();
                 case 0 -> isRunning = false;
                 default -> IO.println("Ugyldigt valg. Prøv igen");
             }
