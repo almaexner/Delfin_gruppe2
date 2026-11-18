@@ -88,9 +88,12 @@ public class UserInterface {
         int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
         LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
         MembershipType membershipType = chooseMembershipStatus();
-            Member member = new Member(name, memberId, birthday, membershipType, null);
-            member.setSwimmerAgeType();
-            clubManagement.addMember(member);
+        int newMemberId = clubManagement.getNewMemberId(clubManagement.numbers);
+        Member member = new Member(name, newMemberId, birthday, membershipType, null);
+        member.setSwimmerAgeType();
+
+        clubManagement.addMember(member);
+
     }
 
     private MembershipType chooseMembershipStatus() {
