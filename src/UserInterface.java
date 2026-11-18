@@ -13,7 +13,8 @@ public class UserInterface {
             int userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
                     "1. Ledelse\n" +
                     "2. Kasserer\n" +
-                    "3. Medlem\n"));
+                    "3. Træner" +
+                    "4. Medlem\n"));
             switch (userInput) {
                 case 1 -> managementMenu();
                 case 2 -> financeMenu();
@@ -36,6 +37,10 @@ public class UserInterface {
                     "2. Medlemmer i restance\n" +
                     "3. "));
         }
+
+    }
+
+    private void trainerMenu() {
 
     }
 
