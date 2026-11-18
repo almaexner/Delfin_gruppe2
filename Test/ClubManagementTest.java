@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -17,11 +16,11 @@ public class ClubManagementTest {
 
         //Act
         clubManagement.addFee(memberFee);
-        List<MemberFee> expected = List.of(memberFee);
+        List<MemberFee> actual = List.of(memberFee);
 
         //Assert
         assertEquals(1, clubManagement.getFees().size()); //Sammenligner antal fee's i listen.
-        assertEquals(expected, clubManagement.getFees()); //Sammenligner hvad der står i listen.
+        assertEquals(clubManagement.getFees(), actual); //Sammenligner hvad der står i listen.
     }
 
     @Test
@@ -32,11 +31,11 @@ public class ClubManagementTest {
 
         //Act
         cM.addMember(member);
-        List<Member> expected = List.of(member);
+        List<Member> actual = List.of(member);
 
         //Assert
         assertEquals(1, cM.getMembers().size()); //Sammenligner antal medlemmer i listen.
-        assertEquals(expected, cM.getMembers()); //Sammenligner hvad der står i listen.
+        assertEquals(cM.getMembers(), actual); //Sammenligner hvad der står i listen.
     }
 
     @Test
@@ -70,10 +69,10 @@ public class ClubManagementTest {
         cM.addMember(member2);
 
         //Act
-        Member expected = cM.findMemberByMemberId(2); //expected = 2
+        Member actual = cM.findMemberByMemberId(2); //actual = 2
 
         //Assert
-        assertEquals(expected, member2);
+        assertEquals(member2, actual);
 
     }
 
@@ -88,10 +87,10 @@ public class ClubManagementTest {
         cM.addMember(member2);
 
         //Act
-        Member expected = cM.findMemberByMemberId(10); //expected = 10
+        Member actual = cM.findMemberByMemberId(10); //actual = 10
 
         //Assert
-        assertNotEquals(expected, member1);
+        assertNotEquals(member1, actual);
     }
 
     @Test
@@ -107,23 +106,23 @@ public class ClubManagementTest {
         cM.addMember(member3);
 
         //Act
-        PaymentResult expected1 = cM.makePayment(member1);
-        PaymentResult expected2 = cM.makePayment(member2);
-        PaymentResult expected3 = cM.makePayment(member3);
+        PaymentResult actual1 = cM.makePayment(member1);
+        PaymentResult actual2 = cM.makePayment(member2);
+        PaymentResult actual3 = cM.makePayment(member3);
 
         //Assert
 
         //Test af member
-        assertEquals(expected1, PaymentResult.SENIOR_ACTIVE);
+        assertEquals(PaymentResult.SENIOR_ACTIVE, actual1);
         assertEquals(3, cM.getFees().size()); //Check af at alle memberFees er der
         assertEquals(1600, cM.getMemberFee(1).getFee()); //Check om medlemsnr1 betaler 1600,-
 
         //Test af member 18 år
-        assertEquals(expected2, PaymentResult.SENIOR_ACTIVE);
+        assertEquals(PaymentResult.SENIOR_ACTIVE, actual2);
         assertEquals(1600, cM.getMemberFee(2).getFee());
 
         //Test af member 60 år
-        assertEquals(expected3, PaymentResult.SENIOR_ACTIVE);
+        assertEquals(PaymentResult.SENIOR_ACTIVE, actual3);
         assertEquals(1600, cM.getMemberFee(3).getFee());
     }
 
@@ -138,15 +137,15 @@ public class ClubManagementTest {
         cM.addMember(member2);
 
         //Act
-        PaymentResult expected1 = cM.makePayment(member1);
-        PaymentResult expected2 = cM.makePayment(member2);
+        PaymentResult actual1 = cM.makePayment(member1);
+        PaymentResult actual2 = cM.makePayment(member2);
 
         //Assert
-        assertEquals(expected1, PaymentResult.PASSIVE);
+        assertEquals(PaymentResult.PASSIVE, actual1);
         assertEquals(500, cM.getMemberFee(1).getFee());
 
         //Test at den ikke giver svømmer Senior discount hvis de er passive
-        assertEquals(expected2, PaymentResult.PASSIVE);
+        assertEquals(PaymentResult.PASSIVE, actual2);
         assertEquals(500, cM.getMemberFee(2).getFee());
     }
 
@@ -161,15 +160,15 @@ public class ClubManagementTest {
         cM.addMember(member2);
 
         //Act
-        PaymentResult expected1 = cM.makePayment(member1);
-        PaymentResult expected2 = cM.makePayment(member2);
+        PaymentResult actual1 = cM.makePayment(member1);
+        PaymentResult actual2 = cM.makePayment(member2);
 
         //Assert
-        assertEquals(expected1, PaymentResult.SENIOR_ACTIVE_DISCOUNT); //Check af PaymentResult er det samme som SwimmerAgeType i makePayment
+        assertEquals(PaymentResult.SENIOR_ACTIVE_DISCOUNT, actual1); //Check af PaymentResult er det samme som SwimmerAgeType i makePayment
         assertEquals(1200, cM.getMemberFee(1).getFee());
 
         //Check af at den ikke giver normal senior pris
-        assertNotEquals(expected2, PaymentResult.SENIOR_ACTIVE_DISCOUNT);
+        assertNotEquals(PaymentResult.SENIOR_ACTIVE_DISCOUNT, actual2);
     }
 
     @Test
@@ -181,10 +180,10 @@ public class ClubManagementTest {
         cM.addMember(member1);
 
         //Act
-        PaymentResult expected1 = cM.makePayment(member1);
+        PaymentResult actual = cM.makePayment(member1);
 
         //Assert
-        assertEquals(expected1, PaymentResult.YOUTH_ACTIVE);
+        assertEquals(PaymentResult.YOUTH_ACTIVE, actual);
         assertEquals(1000, cM.getMemberFee(1).getFee());
     }
 
@@ -197,10 +196,10 @@ public class ClubManagementTest {
         cM.addMember(member1);
 
         //Act
-        PaymentResult expected1 = cM.makePayment(member1);
+        PaymentResult actual = cM.makePayment(member1);
 
         //Assert
-        assertEquals(expected1, PaymentResult.PASSIVE);
+        assertEquals(PaymentResult.PASSIVE, actual);
         assertEquals(500, cM.getMemberFee(1).getFee());
     }
 }
