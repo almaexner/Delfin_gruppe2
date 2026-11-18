@@ -1,16 +1,14 @@
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClubManagementTest {
-    List<Member> members = new ArrayList<>();
 
     @Test
-    void addFeeTest(){
+    void addFeeTest() {
         //Arrange
         ClubManagement clubManagement = new ClubManagement();
         Member member = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
@@ -18,15 +16,190 @@ public class ClubManagementTest {
 
         //Act
         clubManagement.addFee(memberFee);
-        List<MemberFee> expected = List.of(memberFee);
+        List<MemberFee> actual = List.of(memberFee);
 
         //Assert
         assertEquals(1, clubManagement.getFees().size()); //Sammenligner antal fee's i listen.
-        assertEquals(expected, clubManagement.getFees()); //Sammenligner hvad der står i listen.
+        assertEquals(clubManagement.getFees(), actual); //Sammenligner hvad der står i listen.
     }
 
-    void addMemberTest(){
+    @Test
+    void addMemberTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        //Act
+        cM.addMember(member);
+        List<Member> actual = List.of(member);
+
+        //Assert
+        assertEquals(1, cM.getMembers().size()); //Sammenligner antal medlemmer i listen.
+        assertEquals(cM.getMembers(), actual); //Sammenligner hvad der står i listen.
+    }
+
+    @Test
+    void removeMemberTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.of(2003, 10, 8), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member3 = new Member("Jacob", 3, LocalDate.of(1997, 7, 14), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member1); //3 medlemmer er tilføjet
+        cM.addMember(member2);
+        cM.addMember(member3);
+
+        //Act
+        cM.removeMember(member1);
+        // List<Member> expected = List.of(member2, member3);
+
+        //Assert
+        assertEquals(2, cM.getMembers().size()); //Check at den har fjernet 1 medlem og nu har 2 i listen
+    }
+
+    @Test
+    public void findMemberByMemberIdTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.of(2003, 10, 8), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member1);
+        cM.addMember(member2);
+
+        //Act
+        Member actual = cM.findMemberByMemberId(2); //actual = 2
+
+        //Assert
+        assertEquals(member2, actual);
 
     }
 
+    @Test
+    void couldNotFindMemberByMemberIdTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.of(2003, 10, 8), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member1);
+        cM.addMember(member2);
+
+        //Act
+        Member actual = cM.findMemberByMemberId(10); //actual = 10
+
+        //Assert
+        assertNotEquals(member1, actual);
+    }
+
+    @Test
+    void makePaymentSeniorActiveFeeTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.now().minusYears(18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member3 = new Member("Jacob", 3, LocalDate.now().minusYears(60), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member1);
+        cM.addMember(member2);
+        cM.addMember(member3);
+
+        //Act
+        PaymentResult actual1 = cM.makePayment(member1);
+        PaymentResult actual2 = cM.makePayment(member2);
+        PaymentResult actual3 = cM.makePayment(member3);
+
+        //Assert
+
+        //Test af member
+        assertEquals(PaymentResult.SENIOR_ACTIVE, actual1);
+        assertEquals(3, cM.getFees().size()); //Check af at alle memberFees er der
+        assertEquals(1600, cM.getMemberFee(1).getFee()); //Check om medlemsnr1 betaler 1600,-
+
+        //Test af member 18 år
+        assertEquals(PaymentResult.SENIOR_ACTIVE, actual2);
+        assertEquals(1600, cM.getMemberFee(2).getFee());
+
+        //Test af member 60 år
+        assertEquals(PaymentResult.SENIOR_ACTIVE, actual3);
+        assertEquals(1600, cM.getMemberFee(3).getFee());
+    }
+
+    @Test
+    void makePaymentSeniorPassiveFeeTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(18), MembershipType.PASSIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.now().minusYears(61), MembershipType.PASSIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member1);
+        cM.addMember(member2);
+
+        //Act
+        PaymentResult actual1 = cM.makePayment(member1);
+        PaymentResult actual2 = cM.makePayment(member2);
+
+        //Assert
+        assertEquals(PaymentResult.PASSIVE, actual1);
+        assertEquals(500, cM.getMemberFee(1).getFee());
+
+        //Test at den ikke giver svømmer Senior discount hvis de er passive
+        assertEquals(PaymentResult.PASSIVE, actual2);
+        assertEquals(500, cM.getMemberFee(2).getFee());
+    }
+
+    @Test
+    void makePaymentSeniorActiveDiscountFeeTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(61), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.now().minusYears(60), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        cM.addMember(member1);
+        cM.addMember(member2);
+
+        //Act
+        PaymentResult actual1 = cM.makePayment(member1);
+        PaymentResult actual2 = cM.makePayment(member2);
+
+        //Assert
+        assertEquals(PaymentResult.SENIOR_ACTIVE_DISCOUNT, actual1); //Check af PaymentResult er det samme som SwimmerAgeType i makePayment
+        assertEquals(1200, cM.getMemberFee(1).getFee());
+
+        //Check af at den ikke giver normal senior pris
+        assertNotEquals(PaymentResult.SENIOR_ACTIVE_DISCOUNT, actual2);
+    }
+
+    @Test
+    void makePaymentYouthActiveFeeTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(17), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR);
+
+        cM.addMember(member1);
+
+        //Act
+        PaymentResult actual = cM.makePayment(member1);
+
+        //Assert
+        assertEquals(PaymentResult.YOUTH_ACTIVE, actual);
+        assertEquals(1000, cM.getMemberFee(1).getFee());
+    }
+
+    @Test
+    void makePaymentYouthPassiveFeeTest() {
+        //Arrange
+        ClubManagement cM = new ClubManagement();
+        Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(17), MembershipType.PASSIVE, SwimmerAgeType.JUNIOR);
+
+        cM.addMember(member1);
+
+        //Act
+        PaymentResult actual = cM.makePayment(member1);
+
+        //Assert
+        assertEquals(PaymentResult.PASSIVE, actual);
+        assertEquals(500, cM.getMemberFee(1).getFee());
+    }
 }

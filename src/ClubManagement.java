@@ -51,7 +51,7 @@ public class ClubManagement {
             return PaymentResult.YOUTH_ACTIVE;
         }
         if (membershipType.equals(MembershipType.ACTIVE) && (memberAge <= 60)) {
-            addFee(new MemberFee(member, youthFee.calculateFee(), seniorFee.calculateDueDate(LocalDate.now())));
+            addFee(new MemberFee(member, seniorFee.calculateFee(), seniorFee.calculateDueDate(LocalDate.now())));
             return PaymentResult.SENIOR_ACTIVE;
         }
         if (membershipType.equals(MembershipType.ACTIVE) && (memberAge > 60)) {
