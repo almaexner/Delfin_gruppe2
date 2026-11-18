@@ -13,7 +13,7 @@ public class UserInterface {
             int userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
                     "1. Ledelse\n" +
                     "2. Kasserer\n" +
-                    "3. Træner" +
+                    "3. Træner\n" +
                     "4. Medlem\n"));
             switch (userInput) {
                 case 1 -> managementMenu();
@@ -47,7 +47,7 @@ public class UserInterface {
     private void memberMenu() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Indtast dit valg: " +
+            int userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
                     "1. Opret ny svømmer\n" +
                     "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
                     "3. Betal kontigent\n"));
