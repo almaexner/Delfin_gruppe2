@@ -84,11 +84,14 @@ public class UserInterface {
         int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
         LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
         MembershipType membershipType = chooseMembershipStatus();
+        if (clubManagement.doesMemberIdExist(memberId)){
+            Member member = new Member(name, memberId, birthday, membershipType, null);
+            member.setSwimmerAgeType();
 
-        Member member = new Member(name, memberId, birthday, membershipType, null);
-        member.setSwimmerAgeType();
-
-        clubManagement.addMember(member);
+            clubManagement.addMember(member);
+        } else {
+            IO.println("Medlemsnummer findes allerede. Prøv igen");
+        }
     }
 
     private MembershipType chooseMembershipStatus() {

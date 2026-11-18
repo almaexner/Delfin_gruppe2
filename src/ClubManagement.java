@@ -79,4 +79,12 @@ public class ClubManagement {
         }
         return null;
     }
+    public boolean doesMemberIdExist(int memberId){
+        for (Member member : members){
+            if (member.getMemberId() == memberId){
+                return true;
+            }
+        }
+        return false;
+    }
 }
