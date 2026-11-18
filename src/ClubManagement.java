@@ -8,6 +8,8 @@ public class ClubManagement {
     private List<MemberFee> fees = new ArrayList<>();
     private List<Integer> memberIds = new ArrayList<>();
     int[] numbers;
+    private List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
+    private List<FitnessSwimmer> fitnessSwimmers = new ArrayList<>();
 
     public ClubManagement() {
 
@@ -21,19 +23,60 @@ public class ClubManagement {
         members.add(member);
     }
 
+    public void addCompetetiveSwimmer(CompetetiveSwimmer competetiveSwimmer) {
+        competetiveSwimmers.add(competetiveSwimmer);
+    }
+
+    public void addFitnessSwimmers(FitnessSwimmer fitnessSwimmer) {
+        fitnessSwimmers.add(fitnessSwimmer);
+    }
+
     public void removeMember(Member member) {
         members.remove(member);
     }
 
+    public void removeCompetetiveSwimmer(CompetetiveSwimmer competetiveSwimmer) {
+        competetiveSwimmers.remove(competetiveSwimmer);
+    }
+
+    public void removeFitnessSwimmer(FitnessSwimmer fitnessSwimmer) {
+        fitnessSwimmers.remove(fitnessSwimmer);
+    }
 
     public List<Member> getMembers() {
         return members;
+    }
+
+    public List<CompetetiveSwimmer> getCompetetiveSwimmers() {
+        return competetiveSwimmers;
+    }
+
+    public List<FitnessSwimmer> getFitnessSwimmers() {
+        return fitnessSwimmers;
     }
 
     public Member findMemberByMemberId(int memberId) {
         for (Member member : members) {
             if (member.getMemberId() == memberId) {
                 return member;
+            }
+        }
+        return null;
+    }
+
+    public CompetetiveSwimmer findCompetetiveSwimmerByMemberId(int memberId) {
+        for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmers) {
+            if (competetiveSwimmer.getMemberId() == memberId) {
+                return competetiveSwimmer;
+            }
+        }
+        return null;
+    }
+
+    public FitnessSwimmer findFitnessSwimmerByMemberId(int memberId) {
+        for (FitnessSwimmer fitnessSwimmer : fitnessSwimmers) {
+            if (fitnessSwimmer.getMemberId() == memberId) {
+                return fitnessSwimmer;
             }
         }
         return null;
