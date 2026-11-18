@@ -35,14 +35,14 @@ public class CsvMapper {
 
         public String fitnessSwimmerToCsv(FitnessSwimmer fitnessSwimmer) {
         return  fitnessSwimmer.getName()
-                + separator + fitnessSwimmer.getName()
                 + separator + fitnessSwimmer.getMemberId()
                 + separator + fitnessSwimmer.getDateOfBirth()
-                + separator + fitnessSwimmer.getMembershipType();
+                + separator + fitnessSwimmer.getMembershipType()
+                + separator + fitnessSwimmer.getSwimmerAgeType();
         }
 
         public CompetetiveSwimmer CsvCompeteiveSwimmer(String line) {
-        String[] tokens = line.split(separator, 1);
+        String[] tokens = line.split(separator, -1);
         String name = tokens[0];
         int memberId = Integer.parseInt(tokens[1]);
         LocalDate dateOfBirth = LocalDate.parse(tokens[2]);
@@ -58,6 +58,7 @@ public class CsvMapper {
                 + separator + competetiveSwimmer.getMemberId()
                 + separator + competetiveSwimmer.getDateOfBirth()
                 + separator + competetiveSwimmer.getMembershipType()
+                + separator + competetiveSwimmer.getSwimmerAgeType()
                 + separator + competetiveSwimmer.getDisciplin();
         }
 }

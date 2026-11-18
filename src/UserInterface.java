@@ -13,7 +13,8 @@ public class UserInterface {
             int userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
                     "1. Ledelse\n" +
                     "2. Kasserer\n" +
-                    "3. Medlem\n"));
+                    "3. Træner\n" +
+                    "4. Medlem\n"));
             switch (userInput) {
                 case 1 -> managementMenu();
                 case 2 -> financeMenu();
@@ -39,10 +40,14 @@ public class UserInterface {
 
     }
 
+    private void trainerMenu() {
+
+    }
+
     private void memberMenu() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Indtast dit valg: " +
+            int userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
                     "1. Opret ny svømmer\n" +
                     "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
                     "3. Betal kontigent\n"));
@@ -79,11 +84,14 @@ public class UserInterface {
         int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
         LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
         MembershipType membershipType = chooseMembershipStatus();
+        if (clubManagement.doesMemberIdExist(memberId)){
+            Member member = new Member(name, memberId, birthday, membershipType, null);
+            member.setSwimmerAgeType();
 
-        Member member = new Member(name, memberId, birthday, membershipType, null);
-        member.setSwimmerAgeType();
-
-        clubManagement.addMember(member);
+            clubManagement.addMember(member);
+        } else {
+            IO.println("Medlemsnummer findes allerede. Prøv igen");
+        }
     }
 
     private MembershipType chooseMembershipStatus() {

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +20,7 @@ public class FileHandlerTest {
     FileHandler fileHandler;
     List<Member> members;
     List<FitnessSwimmer> fitnessSwimmers;
+    List<CompetetiveSwimmer> competetiveSwimmers;
     Path path;
 
     @BeforeEach
@@ -36,6 +38,7 @@ public class FileHandlerTest {
     @Test
     public void testSaveMembersToFile() throws IOException {
         //Act
+
         fileHandler.saveMember(members);
 
         //Assert
@@ -53,14 +56,50 @@ public class FileHandlerTest {
         assertFalse(membersFromFile.isEmpty());
     }
     @Test
-    public void testLoadFitnessSwimmerFromFile(){
+    public void testLoadFitnessSwimmerFromFile() throws IOException {
         //Arrange
         fitnessSwimmers = List.of(
-                new FitnessSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR, SwimmerType.FITNESS),
-                new FitnessSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR, SwimmerType.FITNESS),
-                new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR, SwimmerType.FITNESS)
+                new FitnessSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR),
+                new FitnessSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR),
+                new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR)
         );
         //Act
-        fileHandler.sa
+        fileHandler.saveFitnessSwimmer(fitnessSwimmers);
+        List<FitnessSwimmer> fitnessSwimmersFromFile = fileHandler.loadFitnessSwimmer();
+
+        //Assert
+        assertTrue(Files.exists(path));
+        assertFalse(fitnessSwimmersFromFile.isEmpty());
+    }
+    @Test
+    public void testSaveFitnessSwimmerToFile() throws IOException {
+        //Arrange
+        fitnessSwimmers = List.of(
+                new FitnessSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR),
+                new FitnessSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR),
+                new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR)
+        );
+        //Act
+        fileHandler.saveFitnessSwimmer(fitnessSwimmers);
+
+        //Assert
+        assertTrue(Files.exists(path));
+        assertFalse(Files.size(path) < 0);
+    }
+    @Test
+    public void testLoadCompetetiveSwimmerFromFile() throws IOException{
+        //Arrange
+        competetiveSwimmers = List.of(
+                new CompetetiveSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR, Disciplin.BREASTSTROKE),
+                new CompetetiveSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR, Disciplin.BUTTERFLY),
+                new CompetetiveSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR, Disciplin.CRAWL)
+        );
+        //Act
+        fileHandler.saveCompetetiveSwimmer(competetiveSwimmers);
+        List<CompetetiveSwimmer> competetiveSwimmersFromFile = fileHandler.loadCompetetiveSwimmers();
+
+        //Assert
+        assertTrue(Files.exists(path));
+        assertFalse(competetiveSwimmersFromFile.isEmpty());
     }
 }
