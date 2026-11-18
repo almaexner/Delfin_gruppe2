@@ -1,10 +1,13 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ClubManagement {
     private List<Member> members = new ArrayList<>();
     private List<MemberFee> fees = new ArrayList<>();
+    private List<Integer> memberIds = new ArrayList<>();
+    int[] numbers;
     private List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
     private List<FitnessSwimmer> fitnessSwimmers = new ArrayList<>();
 
@@ -122,13 +125,25 @@ public class ClubManagement {
         }
         return null;
     }
-
-    public boolean doesMemberIdExist(int memberId) {
-        for (Member member : members) {
-            if (member.getMemberId() == memberId) {
+    public boolean doesMemberIdNotExist(int memberId){
+        for (Member member : members){
+            if (member.getMemberId() == memberId){
                 return true;
             }
         }
         return false;
+    }
+    public int getNewMemberId(int[] numbers){
+        Arrays.sort(numbers);
+
+        int newId = 1;
+
+        for (Integer number : numbers){
+            if (newId != number){
+                return newId;
+            }
+            newId++;
+        }
+        return newId;
     }
 }
