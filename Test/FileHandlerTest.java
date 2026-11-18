@@ -56,11 +56,11 @@ public class FileHandlerTest {
     public void testLoadFitnessSwimmerFromFile(){
         //Arrange
         fitnessSwimmers = List.of(
-                new FitnessSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR, SwimmerType.FITNESS),
-                new FitnessSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR, SwimmerType.FITNESS),
-                new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR, SwimmerType.FITNESS)
+                new FitnessSwimmer("Jørgen Leth", 1, LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR),
+                new FitnessSwimmer("Jørgen Leth 2", 2, LocalDate.of(1999,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR),
+                new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR)
         );
         //Act
-        fileHandler.sa
+
     }
 }

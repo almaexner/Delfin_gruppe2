@@ -98,17 +98,29 @@ public class ClubManagementTest {
     void makePaymentSeniorFeeTest(){
         //Arrange
         ClubManagement cM = new ClubManagement();
-        Member member = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member1 = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member2 = new Member("Harry", 2, LocalDate.now().minusYears(18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        Member member3 = new Member("Jacob", 1, LocalDate.now().minusYears(60), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
 
-        cM.addMember(member);
+        cM.addMember(member1);
+        cM.addMember(member2);
+        cM.addMember(member3);
 
         //Act
-        PaymentResult expected = cM.makePayment(member);
+        PaymentResult expected1 = cM.makePayment(member1);
+        PaymentResult expected2 = cM.makePayment(member2);
+        PaymentResult expected3 = cM.makePayment(member3);
 
         //Assert
-        assertEquals(expected, PaymentResult.SENIOR_ACTIVE);
+
+        //Test af member
+        assertEquals(expected1, PaymentResult.SENIOR_ACTIVE);
         assertEquals(1, cM.getFees().size());
         assertEquals(1600, cM.getMemberFee(1).getFee()); //Check om medlemsnr1 betaler 1600,-
+
+        //Test af member 18 år
+        assertEquals(expected2, PaymentResult.SENIOR_ACTIVE);
+        assertEquals(1600, cM.getMemberFee(2).getFee());
     }
 
 }
