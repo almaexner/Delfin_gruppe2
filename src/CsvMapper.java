@@ -35,10 +35,10 @@ public class CsvMapper {
 
         public String fitnessSwimmerToCsv(FitnessSwimmer fitnessSwimmer) {
         return  fitnessSwimmer.getName()
-                + separator + fitnessSwimmer.getName()
                 + separator + fitnessSwimmer.getMemberId()
                 + separator + fitnessSwimmer.getDateOfBirth()
-                + separator + fitnessSwimmer.getMembershipType();
+                + separator + fitnessSwimmer.getMembershipType()
+                + separator + fitnessSwimmer.getSwimmerAgeType();
         }
 
         public CompetetiveSwimmer CsvCompeteiveSwimmer(String line) {
