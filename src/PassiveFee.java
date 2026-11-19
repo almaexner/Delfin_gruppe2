@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 
 public class PassiveFee implements Fee {
+    private int fee = 500;
 
     @Override
     public int calculateFee() {
-        return 500;
+        return fee;
     }
 
     @Override

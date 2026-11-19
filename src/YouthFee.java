@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 
 public class YouthFee implements Fee {
+    private int fee = 1000;
 
     @Override
     public int calculateFee() {
-        return 1000;
+        return fee;
     }
 
     @Override
