@@ -85,7 +85,8 @@ public class UserInterface {
 
     private void createMember() {
         String name = IO.readln("Indtast navn: ");
-        int memberId = Integer.parseInt(IO.readln("Indtast medlems ID: "));
+        int memberId = clubManagement.getNewMemberId();
+        IO.println("Dit medlems ID er: " + memberId);
         LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
         MembershipType membershipType = chooseMembershipStatus();
         int newMemberId = clubManagement.getNewMemberId();

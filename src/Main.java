@@ -8,7 +8,7 @@ public class Main {
         databaseLoader.createFiles();
         databaseLoader.loadData(clubManagement);
 
-        UserInterface ui = new UserInterface(new ClubManagement());
+        UserInterface ui = new UserInterface(clubManagement);
         ui.run();
 
         databaseLoader.saveData(clubManagement);
