@@ -71,9 +71,33 @@ public class FileHandler {
             List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null){
-                competetiveSwimmers.add(mapper.CsvCompeteiveSwimmer(line));
+                competetiveSwimmers.add(mapper.csvToCompeteiveSwimmer(line));
             }
             return competetiveSwimmers;
+        }
+    }
+
+    public void saveMemberFee(List<MemberFee> fees) throws IOException {
+        try(BufferedWriter writer = Files.newBufferedWriter(path)){
+            for (MemberFee memberFee : fees) {
+                writer.write(mapper.memberFeeToCsv(memberFee));
+                writer.newLine();
+            }
+        }
+    }
+
+    public List<MemberFee> loadMemberFees(ClubManagement clubManagement) throws IOException {
+        try(BufferedReader reader = Files.newBufferedReader(path)) {
+            List<MemberFee> fees = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                MemberFee memberFee = mapper.csvToMemberFee(line, clubManagement);
+
+                if (memberFee != null) {
+                    fees.add(memberFee);
+                }
+            }
+            return fees;
         }
     }
 }

@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +13,7 @@ public class ClubManagementTest {
         //Arrange
         ClubManagement clubManagement = new ClubManagement();
         Member member = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
-        MemberFee memberFee = new MemberFee(member, 1600, LocalDate.of(2027, 1, 1));
+        MemberFee memberFee = new MemberFee(member, 1600, LocalDate.of(2027, 1, 1), false);
 
         //Act
         clubManagement.addFee(memberFee);
@@ -96,7 +95,7 @@ public class ClubManagementTest {
     }
 
     @Test
-    void makePaymentSeniorActiveFeeTest() {
+    void createFeeSeniorActiveFeeTest() {
         //Arrange
         ClubManagement cM = new ClubManagement();
         Member member1 = new Member("Alma", 1, LocalDate.of(1999, 9, 18), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
@@ -108,9 +107,9 @@ public class ClubManagementTest {
         cM.addMember(member3);
 
         //Act
-        PaymentResult actual1 = cM.makePayment(member1);
-        PaymentResult actual2 = cM.makePayment(member2);
-        PaymentResult actual3 = cM.makePayment(member3);
+        PaymentResult actual1 = cM.createFee(member1);
+        PaymentResult actual2 = cM.createFee(member2);
+        PaymentResult actual3 = cM.createFee(member3);
 
         //Assert
 
@@ -129,7 +128,7 @@ public class ClubManagementTest {
     }
 
     @Test
-    void makePaymentSeniorPassiveFeeTest() {
+    void createFeeSeniorPassiveFeeTest() {
         //Arrange
         ClubManagement cM = new ClubManagement();
         Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(18), MembershipType.PASSIVE, SwimmerAgeType.SENIOR);
@@ -139,8 +138,8 @@ public class ClubManagementTest {
         cM.addMember(member2);
 
         //Act
-        PaymentResult actual1 = cM.makePayment(member1);
-        PaymentResult actual2 = cM.makePayment(member2);
+        PaymentResult actual1 = cM.createFee(member1);
+        PaymentResult actual2 = cM.createFee(member2);
 
         //Assert
         assertEquals(PaymentResult.PASSIVE, actual1);
@@ -152,7 +151,7 @@ public class ClubManagementTest {
     }
 
     @Test
-    void makePaymentSeniorActiveDiscountFeeTest() {
+    void createFeeSeniorActiveDiscountFeeTest() {
         //Arrange
         ClubManagement cM = new ClubManagement();
         Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(61), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
@@ -162,8 +161,8 @@ public class ClubManagementTest {
         cM.addMember(member2);
 
         //Act
-        PaymentResult actual1 = cM.makePayment(member1);
-        PaymentResult actual2 = cM.makePayment(member2);
+        PaymentResult actual1 = cM.createFee(member1);
+        PaymentResult actual2 = cM.createFee(member2);
 
         //Assert
         assertEquals(PaymentResult.SENIOR_ACTIVE_DISCOUNT, actual1); //Check af PaymentResult er det samme som SwimmerAgeType i makePayment
@@ -174,7 +173,7 @@ public class ClubManagementTest {
     }
 
     @Test
-    void makePaymentYouthActiveFeeTest() {
+    void createFeeYouthActiveFeeTest() {
         //Arrange
         ClubManagement cM = new ClubManagement();
         Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(17), MembershipType.ACTIVE, SwimmerAgeType.JUNIOR);
@@ -182,7 +181,7 @@ public class ClubManagementTest {
         cM.addMember(member1);
 
         //Act
-        PaymentResult actual = cM.makePayment(member1);
+        PaymentResult actual = cM.createFee(member1);
 
         //Assert
         assertEquals(PaymentResult.YOUTH_ACTIVE, actual);
@@ -190,7 +189,7 @@ public class ClubManagementTest {
     }
 
     @Test
-    void makePaymentYouthPassiveFeeTest() {
+    void createFeeYouthPassiveFeeTest() {
         //Arrange
         ClubManagement cM = new ClubManagement();
         Member member1 = new Member("Alma", 1, LocalDate.now().minusYears(17), MembershipType.PASSIVE, SwimmerAgeType.JUNIOR);
@@ -198,7 +197,7 @@ public class ClubManagementTest {
         cM.addMember(member1);
 
         //Act
-        PaymentResult actual = cM.makePayment(member1);
+        PaymentResult actual = cM.createFee(member1);
 
         //Assert
         assertEquals(PaymentResult.PASSIVE, actual);
