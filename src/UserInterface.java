@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class UserInterface {
     private ClubManagement clubManagement;
@@ -10,11 +12,18 @@ public class UserInterface {
     public void run() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
-                    "1. Ledelse\n" +
-                    "2. Kasserer\n" +
-                    "3. Træner\n" +
-                    "4. Medlem\n"));
+            int userInput;
+            try {
+                userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
+                        "1. Ledelse\n" +
+                        "2. Kasserer\n" +
+                        "3. Træner\n" +
+                        "4. Medlem\n" +
+                        "0. Afslut \n"));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
             switch (userInput) {
                 case 1 -> managementMenu();
                 case 2 -> financeMenu();
@@ -33,10 +42,25 @@ public class UserInterface {
     private void financeMenu() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
-                    "1. Se betalinger\n" +
-                    "2. Medlemmer i restance\n" +
-                    "3. "));
+            int userInput;
+
+            try {
+                userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
+                        "1. Se regninger\n" +
+                        "2. Medlemmer i restance\n" +
+                        "0. Tilbage til brugermenu "));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
+            switch (userInput) {
+                case 1 -> showFees();
+                case 2 -> showOverdueFees();
+                case 0 -> {
+                    return;
+                }
+                default -> IO.println("Ugyldigt valg. Prøv igen.");
+            }
         }
 
     }
@@ -48,10 +72,17 @@ public class UserInterface {
     private void memberMenu() {
         boolean isRunning = true;
         while (isRunning) {
-            int userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
-                    "1. Opret ny svømmer\n" +
-                    "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
-                    "3. Betal kontigent\n"));
+            int userInput;
+            try {
+                userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
+                        "1. Opret ny svømmer\n" +
+                        "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
+                        "3. Betal kontigent\n" +
+                        "0. Tilbage til brugermenu"));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
             switch (userInput) {
                 case 1 -> createMember();
                 case 2 -> changeMembershipStatus();
@@ -59,27 +90,58 @@ public class UserInterface {
                 case 0 -> {
                     return;
                 }
+                default -> IO.println("Ugyldigt valg. Prøv igen.");
             }
         }
     }
 
     public void payFee() {
-        int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
-        Member memberFound = null;
-        for (Member member : clubManagement.getMembers()) {
-            if (member.getMemberId() == memberId) {
-                memberFound = member;
+        try {
+            int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
+            Member member = clubManagement.findMemberByMemberId(memberId);
+            if (member == null) {
+                IO.println("Der findes ikke et medlem med dette medlemsnummer.");
+                return;
             }
-        }
-        PaymentResult result = clubManagement.makePayment(memberFound);
-        switch (result) {
-            case PASSIVE -> IO.println("Passiv: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
-            case YOUTH_ACTIVE -> IO.println("Ung: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
-            case SENIOR_ACTIVE ->
-                    IO.println("Senior: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
-            case SENIOR_ACTIVE_DISCOUNT ->
-                    IO.println("Seniorrabat: Du har følgende regning: " + clubManagement.getMemberFee(memberId));
 
+            List<MemberFee> unpaidFees = clubManagement.getUnpaidFees(memberId);
+            if (unpaidFees.isEmpty()) {
+                IO.println("Du har ingen ubetalte regninger.");
+                return;
+            }
+
+            for (MemberFee memberFee : unpaidFees) {
+                IO.println(memberFee);
+                String userAnswer = IO.readln("Vil du betale denne regning? (ja/nej): ");
+                if (userAnswer.equalsIgnoreCase("ja")) {
+                    clubManagement.registerPayment(memberFee);
+                    IO.println("Regningen er betalt.");
+                }
+            }
+        } catch (NumberFormatException e) {
+            IO.println("Medlems Id skal være et tal");
+        }
+    }
+
+    public void showFees() {
+        if (clubManagement.getFees().isEmpty()) {
+            IO.println("Der er ingen regninger.");
+            return;
+        }
+        for (MemberFee memberFee : clubManagement.getFees()) {
+            IO.println(memberFee);
+        }
+    }
+
+    public void showOverdueFees() {
+        List<MemberFee> overdueFees = clubManagement.getOverdueFees(LocalDate.now());
+
+        if (overdueFees.isEmpty()) {
+            IO.println("Der er ingen medlemmer i restance.");
+            return;
+        }
+        for (MemberFee memberFee : overdueFees) {
+            IO.println(memberFee);
         }
     }
 
@@ -87,13 +149,28 @@ public class UserInterface {
         String name = IO.readln("Indtast navn: ");
         int memberId = clubManagement.getNewMemberId();
         IO.println("Dit medlems ID er: " + memberId);
-        LocalDate birthday = LocalDate.parse(IO.readln("Indtast fødselsdag (YYYY-MM-DD: "));
+        LocalDate birthday;
+
+        while (true) {
+            try {
+                birthday = LocalDate.parse(IO.readln("Indtast fødselsdato (YYYY-MM-DD): "));
+
+                if (birthday.isAfter(LocalDate.now())) {
+                    IO.println("Fødselsdatoen kan ikke være ude i fremtiden.");
+                    continue;
+                }
+                break;
+            } catch (DateTimeParseException e) {
+                IO.println("Ugyldig dato. Husk at brug formatet YYYY-MM-DD");
+            }
+        }
         MembershipType membershipType = chooseMembershipStatus();
-        int newMemberId = clubManagement.getNewMemberId();
-        Member member = new Member(name, newMemberId, birthday, membershipType, null);
+        Member member = new Member(name, memberId, birthday, membershipType, null);
         member.setSwimmerAgeType();
 
         clubManagement.addMember(member);
+        clubManagement.createFee(member);
+        IO.println("Medlemmet " + member.getName() + ": er oprettet og fået første regning.");
 
     }
 
@@ -113,7 +190,16 @@ public class UserInterface {
     }
 
     private void changeMembershipStatus() {
-        int memberId = Integer.parseInt(IO.readln("Indtast medlems id: "));
+        int memberId;
+
+        while (true) {
+            try {
+                memberId = Integer.parseInt(IO.readln("Indtast medlems id: "));
+                break;
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+            }
+        }
         Member member = clubManagement.findMemberByMemberId(memberId);
 
         if (member == null) {
