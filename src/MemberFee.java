@@ -4,7 +4,7 @@ public class MemberFee {
     private LocalDate dueDate;
     private Member member;
     private int fee;
-    private boolean paid = false;
+    private boolean paid;
 
     public MemberFee(Member member, int fee, LocalDate dueDate, boolean paid) {
         this.member = member;

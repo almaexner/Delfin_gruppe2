@@ -24,7 +24,7 @@ public class DatabaseLoader {
         createFileIfNotExists(Path.of("memberFees.csv"));
     }
 
-    public void createFileIfNotExists(Path path) throws IOException{
+    public void createFileIfNotExists(Path path) throws IOException {
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
@@ -50,7 +50,7 @@ public class DatabaseLoader {
         }
     }
 
-    public void saveData (ClubManagement clubManagement) throws IOException {
+    public void saveData(ClubManagement clubManagement) throws IOException {
         memberFile.saveMember(clubManagement.getMembers());
         fitnessSwimmerFile.saveFitnessSwimmer(clubManagement.getFitnessSwimmers());
         competetiveSwimmerFile.saveCompetetiveSwimmer(clubManagement.getCompetetiveSwimmers());

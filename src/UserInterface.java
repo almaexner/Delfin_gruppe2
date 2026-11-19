@@ -42,14 +42,14 @@ public class UserInterface {
 
             try {
                 userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
-                        "1. Se alle medlemmer" +
-                        "0. Tilbage til brugermenu"));
+                        "1. Se alle medlemmer \n" +
+                        "0. Tilbage til brugermenu \n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
                 continue;
             }
             switch (userInput) {
-                case 1 -> clubManagement.getMembers();
+                case 1 -> showMembers();
                 case 0 -> {
                     return;
                 }
@@ -68,7 +68,7 @@ public class UserInterface {
                 userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
                         "1. Se regninger\n" +
                         "2. Medlemmer i restance\n" +
-                        "0. Tilbage til brugermenu "));
+                        "0. Tilbage til brugermenu \n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
                 continue;
@@ -98,7 +98,7 @@ public class UserInterface {
                         "1. Opret ny svømmer\n" +
                         "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
                         "3. Betal kontigent\n" +
-                        "0. Tilbage til brugermenu"));
+                        "0. Tilbage til brugermenu \n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
                 continue;
@@ -230,5 +230,15 @@ public class UserInterface {
         MembershipType membershipType = chooseMembershipStatus();
         member.setMembershipType(membershipType);
         IO.println("Medlemsstatus er ændret for: " + member.getName());
+    }
+
+    public void showMembers() {
+        if (clubManagement.getMembers().isEmpty()) {
+            IO.println("Der er ingen medlemmer.");
+            return;
+        }
+        for (Member member : clubManagement.getMembers()) {
+            IO.println(member);
+        }
     }
 }

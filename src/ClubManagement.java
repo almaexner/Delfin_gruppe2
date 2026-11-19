@@ -142,7 +142,7 @@ public class ClubManagement {
         return null;
     }
 
-    public int getNewMemberId(){ //Finder højeste memberId i listen og ligger +1 oveni det nye der
+    public int getNewMemberId() { //Finder højeste memberId i listen og ligger +1 oveni det nye der
         //bliver tildelt
         int highestMemberId = 0;
 
