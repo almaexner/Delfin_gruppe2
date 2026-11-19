@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -201,5 +203,26 @@ public class ClubManagementTest {
         //Assert
         assertEquals(PaymentResult.PASSIVE, actual);
         assertEquals(500, cM.getMemberFee(1).getFee());
+    }
+    @Test
+    void testCreatedMemberGetsAutomaticallyAssignedMemberId() {
+        //Arrange
+        UserInterface ui;
+        ClubManagement clubManagement = new ClubManagement();
+        List<Member> members = new ArrayList<>();
+
+        //Act
+        Member member1 = new Member("Jørgen Leth", clubManagement.getNewMemberId(), LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        clubManagement.addMember(member1);
+        Member member2 = new Member("Jørgen Leth2", clubManagement.getNewMemberId(), LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        clubManagement.addMember(member2);
+        Member member3 = new Member("Jørgen Leth3", clubManagement.getNewMemberId(), LocalDate.of(2000,1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        clubManagement.addMember(member3);
+
+        //Assert
+        assertEquals(1, member1.getMemberId());
+        assertEquals(2, member2.getMemberId());
+        assertEquals(3, member3.getMemberId());
     }
 }

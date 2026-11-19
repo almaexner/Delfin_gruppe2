@@ -12,7 +12,6 @@ public class ClubManagement {
     private List<FitnessSwimmer> fitnessSwimmers = new ArrayList<>();
 
     public ClubManagement() {
-
     }
 
     public void addFee(MemberFee memberFee) {
@@ -133,17 +132,10 @@ public class ClubManagement {
         }
         return false;
     }
-    public int getNewMemberId(int[] numbers){
-        Arrays.sort(numbers);
-
-        int newId = 1;
-
-        for (Integer number : numbers){
-            if (newId != number){
-                return newId;
-            }
-            newId++;
+    public int getNewMemberId(){
+        if (members.isEmpty()){
+            return 1;
         }
-        return newId;
+        return members.getLast().getMemberId() + 1;
     }
 }
