@@ -8,7 +8,6 @@ public class Member implements Comparable<Member> {
     private final LocalDate dateOfBirth;
     private MembershipType membershipType;
     private SwimmerAgeType swimmerAgeType;
-    private List<MemberFee> memberFees;
 
     public Member(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerAgeType swimmerAgeType) {
         this.name = name;
