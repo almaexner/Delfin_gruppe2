@@ -36,6 +36,26 @@ public class UserInterface {
     }
 
     private void managementMenu() {
+        boolean isRunning = true;
+        while (isRunning) {
+            int userInput;
+
+            try {
+                userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
+                        "1. Se alle medlemmer" +
+                        "0. Tilbage til brugermenu"));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
+            switch (userInput) {
+                case 1 -> clubManagement.getMembers();
+                case 0 -> {
+                    return;
+                }
+                default -> IO.println("Ugyldigt input. Prøv igen.");
+            }
+        }
 
     }
 
