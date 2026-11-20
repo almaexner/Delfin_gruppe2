@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CsvMapperTest {
+public class CsvMapperTest {
 
     private CsvMapper mapper = new CsvMapper();
 
