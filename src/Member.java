@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.Objects;
 
 public class Member implements Comparable<Member> {
     private final String name;
@@ -72,4 +73,16 @@ public class Member implements Comparable<Member> {
         return Integer.compare(this.memberId, member.memberId);
     }
 
+    //equals
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return memberId == member.memberId && Objects.equals(name, member.name) && Objects.equals(dateOfBirth, member.dateOfBirth) && membershipType == member.membershipType && swimmerAgeType == member.swimmerAgeType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
+    }
 }
