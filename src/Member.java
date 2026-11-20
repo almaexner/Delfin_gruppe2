@@ -78,11 +78,11 @@ public class Member implements Comparable<Member> {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return memberId == member.memberId && Objects.equals(name, member.name) && Objects.equals(dateOfBirth, member.dateOfBirth) && membershipType == member.membershipType && swimmerAgeType == member.swimmerAgeType && Objects.equals(memberFees, member.memberFee);
+        return memberId == member.memberId && Objects.equals(name, member.name) && Objects.equals(dateOfBirth, member.dateOfBirth) && membershipType == member.membershipType && swimmerAgeType == member.swimmerAgeType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, memberId, dateOfBirth, membershipType, swimmerAgeType, memberFees);
+        return Objects.hash(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
     }
 }
