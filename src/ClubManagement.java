@@ -5,8 +5,6 @@ import java.util.List;
 public class ClubManagement {
     private List<Member> members = new ArrayList<>();
     private List<MemberFee> fees = new ArrayList<>();
-    private List<Integer> memberIds = new ArrayList<>();
-    int[] numbers;
     private List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
     private List<FitnessSwimmer> fitnessSwimmers = new ArrayList<>();
 
