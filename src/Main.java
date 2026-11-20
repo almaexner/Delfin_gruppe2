@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-public class Main {
     void main() throws IOException {
         ClubManagement clubManagement = new ClubManagement();
         DatabaseLoader databaseLoader = new DatabaseLoader();
@@ -15,4 +14,3 @@ public class Main {
 
 
     }
-}
