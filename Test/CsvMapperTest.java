@@ -68,7 +68,7 @@ public class CsvMapperTest {
         String competeiveSwimmerCsv = "Harry,3,2003-10-08,ACTIVE,SENIOR,BUTTERFLY";
 
         //Act
-        CompetetiveSwimmer actualCompetiveSwimmer = mapper.CsvCompeteiveSwimmer(competeiveSwimmerCsv);
+        CompetetiveSwimmer actualCompetiveSwimmer = mapper.csvToCompeteiveSwimmer(competeiveSwimmerCsv);
 
         //Assert
         assertEquals(expectedCompetetiveSwimmer, actualCompetiveSwimmer);
