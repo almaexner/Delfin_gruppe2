@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-public class Main {
     void main() throws IOException {
         ClubManagement clubManagement = new ClubManagement();
         DatabaseLoader databaseLoader = new DatabaseLoader();
@@ -8,11 +7,10 @@ public class Main {
         databaseLoader.createFiles();
         databaseLoader.loadData(clubManagement);
 
-        UserInterface ui = new UserInterface(new ClubManagement());
+        UserInterface ui = new UserInterface(clubManagement);
         ui.run();
 
         databaseLoader.saveData(clubManagement);
 
 
     }
-}
