@@ -6,8 +6,6 @@ import java.util.List;
 public class ClubManagement {
     private List<Member> members = new ArrayList<>();
     private List<MemberFee> fees = new ArrayList<>();
-    private List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
-    private List<FitnessSwimmer> fitnessSwimmers = new ArrayList<>();
 
     public ClubManagement() {
     }
@@ -20,24 +18,8 @@ public class ClubManagement {
         members.add(member);
     }
 
-    public void addCompetetiveSwimmer(CompetetiveSwimmer competetiveSwimmer) {
-        competetiveSwimmers.add(competetiveSwimmer);
-    }
-
-    public void addFitnessSwimmers(FitnessSwimmer fitnessSwimmer) {
-        fitnessSwimmers.add(fitnessSwimmer);
-    }
-
     public void removeMember(Member member) {
         members.remove(member);
-    }
-
-    public void removeCompetetiveSwimmer(CompetetiveSwimmer competetiveSwimmer) {
-        competetiveSwimmers.remove(competetiveSwimmer);
-    }
-
-    public void removeFitnessSwimmer(FitnessSwimmer fitnessSwimmer) {
-        fitnessSwimmers.remove(fitnessSwimmer);
     }
 
     public List<Member> getMembers() {
@@ -45,10 +27,24 @@ public class ClubManagement {
     }
 
     public List<CompetetiveSwimmer> getCompetetiveSwimmers() {
+        ArrayList<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
+        for (Member member : members) {
+            if (member instanceof CompetetiveSwimmer) {
+                CompetetiveSwimmer competetiveSwimmer = (CompetetiveSwimmer) member;
+                competetiveSwimmers.add(competetiveSwimmer);
+            }
+        }
         return competetiveSwimmers;
     }
 
     public List<FitnessSwimmer> getFitnessSwimmers() {
+        ArrayList<FitnessSwimmer> fitnessSwimmers = new ArrayList<>();
+        for (Member member : members) {
+            if (member instanceof FitnessSwimmer) {
+                FitnessSwimmer fitnessSwimmer = (FitnessSwimmer) member;
+                fitnessSwimmers.add(fitnessSwimmer);
+            }
+        }
         return fitnessSwimmers;
     }
 
@@ -62,18 +58,24 @@ public class ClubManagement {
     }
 
     public CompetetiveSwimmer findCompetetiveSwimmerByMemberId(int memberId) {
-        for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmers) {
-            if (competetiveSwimmer.getMemberId() == memberId) {
-                return competetiveSwimmer;
+        for (Member member : members) {
+            if (member instanceof CompetetiveSwimmer) {
+                CompetetiveSwimmer competetiveSwimmer = (CompetetiveSwimmer) member;
+                if (competetiveSwimmer.getMemberId() == memberId) {
+                    return competetiveSwimmer;
+                }
             }
         }
         return null;
     }
 
     public FitnessSwimmer findFitnessSwimmerByMemberId(int memberId) {
-        for (FitnessSwimmer fitnessSwimmer : fitnessSwimmers) {
-            if (fitnessSwimmer.getMemberId() == memberId) {
-                return fitnessSwimmer;
+        for (Member member : members) {
+            if (member instanceof FitnessSwimmer) {
+                FitnessSwimmer fitnessSwimmer = (FitnessSwimmer) member;
+                if (fitnessSwimmer.getMemberId() == memberId) {
+                    return fitnessSwimmer;
+                }
             }
         }
         return null;
