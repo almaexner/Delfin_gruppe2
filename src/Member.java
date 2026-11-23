@@ -3,7 +3,7 @@ import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 
-public class Member implements Comparable<Member> {
+public abstract class Member implements Comparable<Member> {
     private final String name;
     private final int memberId;
     private final LocalDate dateOfBirth;

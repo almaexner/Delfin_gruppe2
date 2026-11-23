@@ -185,7 +185,7 @@ public class UserInterface {
             }
         }
         MembershipType membershipType = chooseMembershipStatus();
-        Member member = new Member(name, memberId, birthday, membershipType, null);
+        FitnessSwimmer member = new FitnessSwimmer(name, memberId, birthday, membershipType, null);
         member.setSwimmerAgeType();
 
         clubManagement.addMember(member);
