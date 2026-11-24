@@ -20,10 +20,11 @@ public class CompetetiveSwimmer extends Member {
 
     public List<Disciplin> getDisciplins() {
         return disciplins;
-    public List<CompetitionResult> getCompetitionResults(){
+    }
+    public List<CompetitionResult> getCompetitionResults () {
         return competitionResults;
     }
-    public void addCompetitionResults(CompetitionResult competitionResult){
+    public void addCompetitionResults (CompetitionResult competitionResult){
         competitionResults.add(competitionResult);
     }
 }
