@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class PassiveFee implements Fee {
+public class PassiveFeeCalculator implements FeeCalculator {
     private int fee = 500;
 
     @Override

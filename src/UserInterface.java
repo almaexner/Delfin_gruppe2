@@ -53,7 +53,7 @@ public class UserInterface {
                 case 0 -> {
                     return;
                 }
-                default -> IO.println("Ugyldigt input. Prøv igen.");
+                default -> IO.println("Ugyldigt valg. Prøv igen.");
             }
         }
 
@@ -86,6 +86,25 @@ public class UserInterface {
     }
 
     private void trainerMenu() {
+        boolean isRunning = true;
+        while (isRunning) {
+            int userInput;
+            try {
+                userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
+                        "1. Tilføj disciplin til svømmer\n" +
+                        "0. Tilbage til brugermenu"));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
+            switch (userInput) {
+                case 1 -> addDisciplin();
+                case 0 -> {
+                    return;
+                }
+                default -> IO.println("ugyldigt valg. Prøv igen.");
+            }
+        }
 
     }
 
@@ -241,4 +260,58 @@ public class UserInterface {
             IO.println(member);
         }
     }
+
+    public void addDisciplin() {
+        CompetetiveSwimmer competetiveSwimmer;
+
+        while (true) {
+            try {
+                int memberId = Integer.parseInt(IO.readln("Indtast medlems id: "));
+                clubManagement.fitnessSwimmerToCompetetiveSwimmer(memberId);
+                competetiveSwimmer = clubManagement.findCompetetiveSwimmerByMemberId(memberId);
+                if (competetiveSwimmer == null) {
+                    IO.println("Der findes intet medlem med dette medlems id.");
+                    return;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+            }
+        }
+
+        while (true) {
+            String userInput = IO.readln("Vælg disciplin: \n" +
+                    "1. Butterfly\n" +
+                    "2. Crawl\n" +
+                    "3. Rygcrawl\n" +
+                    "4. Brystsvømning");
+            Disciplin disciplin;
+
+            if (userInput.equals("1")) {
+                disciplin = Disciplin.BUTTERFLY;
+                competetiveSwimmer.addDisciplin(disciplin);
+            } else if (userInput.equals("2")) {
+                disciplin = Disciplin.CRAWL;
+                competetiveSwimmer.addDisciplin(disciplin);
+            } else if (userInput.equals("3")) {
+                disciplin = Disciplin.BACK_CRAWL;
+                competetiveSwimmer.addDisciplin(disciplin);
+            } else if (userInput.equals("4")) {
+                disciplin = Disciplin.BREASTSTROKE;
+                competetiveSwimmer.addDisciplin(disciplin);
+            } else {
+                IO.println("Ugyldigt valg.");
+                continue;
+            }
+
+            boolean added = competetiveSwimmer.addDisciplin(disciplin);
+            if (added) {
+                IO.println("Disciplinen er tilføjet.");
+            } else {
+                IO.println("Svømmeren har allerede denne disciplin.");
+            }
+            return;
+        }
+    }
 }
+

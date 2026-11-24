@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,9 +105,9 @@ public class ClubManagement {
     public PaymentResult createFee(Member member) {
         int memberAge = member.calculateAge(member.getDateOfBirth());
         MembershipType membershipType = member.getMembershipType();
-        PassiveFee passiveFee = new PassiveFee();
-        YouthFee youthFee = new YouthFee();
-        SeniorFee seniorFee = new SeniorFee(memberAge);
+        PassiveFeeCalculator passiveFee = new PassiveFeeCalculator();
+        YouthFeeCalculator youthFee = new YouthFeeCalculator();
+        SeniorFeeCalculator seniorFee = new SeniorFeeCalculator(memberAge);
         if (membershipType.equals(MembershipType.ACTIVE) && (memberAge < 18)) {
             addFee(new MemberFee(member, youthFee.calculateFee(), youthFee.calculateDueDate(LocalDate.now()), false));
             return PaymentResult.YOUTH_ACTIVE;
@@ -164,5 +163,24 @@ public class ClubManagement {
             }
         }
         return overdueFees;
+    }
+
+    public CompetetiveSwimmer fitnessSwimmerToCompetetiveSwimmer(int memberId) {
+        for (Member member : members) {
+            if (member.getMemberId() == memberId) {
+                if (member instanceof CompetetiveSwimmer) {
+                    return null;
+                }
+                CompetetiveSwimmer competetiveSwimmer = new CompetetiveSwimmer(member.getName(),
+                        member.getMemberId(),
+                        member.getDateOfBirth(),
+                        member.getMembershipType(),
+                        member.getSwimmerAgeType());
+                members.remove(member);
+                members.add(competetiveSwimmer);
+                return competetiveSwimmer;
+            }
+        }
+        return null;
     }
 }
