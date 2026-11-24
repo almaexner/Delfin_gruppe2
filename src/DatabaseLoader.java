@@ -32,17 +32,17 @@ public class DatabaseLoader {
 
     public void loadData(ClubManagement clubManagement) throws IOException {
 
-        for (Member member : memberFile.loadMembers()) {
-            member.setSwimmerAgeType(); //Checker ved programstart om medlem har skiftet SwimmerAgeType og retter hvis tilfældet.
-            clubManagement.addMember(member);
-        }
+//        for (Member member : memberFile.loadMembers()) {
+//            member.setSwimmerAgeType(); //Checker ved programstart om medlem har skiftet SwimmerAgeType og retter hvis tilfældet.
+//            clubManagement.addMember(member);
+//        }
 
         for (FitnessSwimmer fitnessSwimmer : fitnessSwimmerFile.loadFitnessSwimmer()) {
-            clubManagement.addFitnessSwimmers(fitnessSwimmer);
+            clubManagement.addMember(fitnessSwimmer);
         }
 
         for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmerFile.loadCompetetiveSwimmers()) {
-            clubManagement.addCompetetiveSwimmer(competetiveSwimmer);
+            clubManagement.addMember(competetiveSwimmer);
         }
 
         for (MemberFee memberFee : memberFeeFile.loadMemberFees(clubManagement)) {

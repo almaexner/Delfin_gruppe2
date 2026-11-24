@@ -26,16 +26,16 @@ public class FileHandler {
         }
     }
 
-    public List<Member> loadMembers() throws IOException {
-        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
-            List<Member> members = new ArrayList<>();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                members.add(mapper.csvToMember(line));
-            }
-            return members;
-        }
-    }
+//    public List<Member> loadMembers() throws IOException {
+//        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
+//            List<Member> members = new ArrayList<>();
+//            String line;
+//            while ((line = bufferedReader.readLine()) != null) {
+//                members.add(mapper.csvToMember(line));
+//            }
+//            return members;
+//        }
+//    }
 
     //Fitness swimmer
     public void saveFitnessSwimmer(List<FitnessSwimmer> fitnessSwimmers) throws IOException {

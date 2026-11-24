@@ -1,10 +1,19 @@
 import java.time.LocalDate;
 
-public class YouthFee implements Fee {
-    private int fee = 1000;
+public class SeniorFeeCalculator implements FeeCalculator {
+    private int age;
+    private int fee = 1600;
+
+    public SeniorFeeCalculator(int age) {
+        this.age = age;
+    }
 
     @Override
     public int calculateFee() {
+        if (age > 60) {
+            int discount = fee * 25 / 100;
+            return fee - discount;
+        }
         return fee;
     }
 
