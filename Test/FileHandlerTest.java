@@ -2,12 +2,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +47,7 @@ public class FileHandlerTest {
     public void testLoadMembersFromFile() throws IOException {
         //Act
         fileHandler.saveMember(members);
-        List<Member> membersFromFile = fileHandler.loadMembers();
+        List<Member> membersFromFile = fileHandler.loadFitnessSwimmer();
 
         //Assert
         assertTrue(Files.exists(path));
