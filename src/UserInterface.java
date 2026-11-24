@@ -289,16 +289,12 @@ public class UserInterface {
 
             if (userInput.equals("1")) {
                 disciplin = Disciplin.BUTTERFLY;
-                competetiveSwimmer.addDisciplin(disciplin);
             } else if (userInput.equals("2")) {
                 disciplin = Disciplin.CRAWL;
-                competetiveSwimmer.addDisciplin(disciplin);
             } else if (userInput.equals("3")) {
                 disciplin = Disciplin.BACK_CRAWL;
-                competetiveSwimmer.addDisciplin(disciplin);
             } else if (userInput.equals("4")) {
                 disciplin = Disciplin.BREASTSTROKE;
-                competetiveSwimmer.addDisciplin(disciplin);
             } else {
                 IO.println("Ugyldigt valg.");
                 continue;

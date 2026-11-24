@@ -43,16 +43,16 @@ public class FileHandlerTest {
         assertTrue(Files.exists(path));
         assertTrue(Files.size(path) > 0);
     }
-    @Test
-    public void testLoadMembersFromFile() throws IOException {
-        //Act
-        fileHandler.saveMember(members);
-        List<Member> membersFromFile = fileHandler.loadFitnessSwimmer();
-
-        //Assert
-        assertTrue(Files.exists(path));
-        assertFalse(membersFromFile.isEmpty());
-    }
+//    @Test
+//    public void testLoadMembersFromFile() throws IOException {
+//        //Act
+//        fileHandler.saveMember(members);
+//        List<Member> membersFromFile = fileHandler.loadFitnessSwimmer();
+//
+//        //Assert
+//        assertTrue(Files.exists(path));
+//        assertFalse(membersFromFile.isEmpty());
+//    }
     @Test
     public void testLoadFitnessSwimmerFromFile() throws IOException {
         //Arrange

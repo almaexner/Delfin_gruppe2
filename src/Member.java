@@ -1,7 +1,5 @@
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public abstract class Member implements Comparable<Member> {
@@ -10,7 +8,6 @@ public abstract class Member implements Comparable<Member> {
     private final LocalDate dateOfBirth;
     private MembershipType membershipType;
     private SwimmerAgeType swimmerAgeType;
-    private ArrayList<DisciplinResult> disciplinResults = new ArrayList<>();
 
     public Member(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerAgeType swimmerAgeType) {
         this.name = name;
@@ -41,10 +38,6 @@ public abstract class Member implements Comparable<Member> {
         return swimmerAgeType;
     }
 
-    public ArrayList<DisciplinResult> getDisciplinResults() {
-        return disciplinResults;
-    }
-
     //Setters
     public void setMembershipType(MembershipType membershipType) {
         this.membershipType = membershipType;
@@ -60,9 +53,6 @@ public abstract class Member implements Comparable<Member> {
         }
     }
 
-    public void addDisciplinResults(DisciplinResult disciplinResult){
-        disciplinResults.add(disciplinResult);
-    }
     public int calculateAge(LocalDate dateOfBirth) {
         LocalDate dateNow = LocalDate.now();
         Period periodBetween = Period.between(dateOfBirth, dateNow);

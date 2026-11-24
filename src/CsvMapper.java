@@ -42,14 +42,24 @@ public class CsvMapper {
     }
 
     public CompetetiveSwimmer csvToCompeteiveSwimmer(String line) {
-        String[] tokens = line.split(separator, -1);
+        String[] tokens = line.split(separator, 6);
         String name = tokens[0];
         int memberId = Integer.parseInt(tokens[1]);
         LocalDate dateOfBirth = LocalDate.parse(tokens[2]);
         MembershipType membershipType = MembershipType.valueOf(tokens[3]);
         SwimmerAgeType swimmerAgeType = SwimmerAgeType.valueOf(tokens[4]);
-        return new CompetetiveSwimmer(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
+        CompetetiveSwimmer competetiveSwimmer = new CompetetiveSwimmer(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
+        String disciplins = tokens[5];
+        disciplins = disciplins.replace("[", ""); //Erstatter [] med tommefelter
+        disciplins = disciplins.replace("]", "");
 
+        if (!disciplins.isEmpty()) {
+            for (String disciplinName : disciplins.split(", ")) {
+                Disciplin disciplin = Disciplin.valueOf(disciplinName);
+                competetiveSwimmer.addDisciplin(disciplin);
+            }
+        }
+        return competetiveSwimmer;
     }
 
     public String competetiveSwimmertToCsv(CompetetiveSwimmer competetiveSwimmer) {
