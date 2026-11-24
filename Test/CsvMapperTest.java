@@ -8,32 +8,32 @@ public class CsvMapperTest {
 
     private CsvMapper mapper = new CsvMapper();
 
-//    @Test
-//    void csvToMember() {
-//        //Arrenge
-//        Member expectedMember = new Member("Alma", 1, LocalDate.of(1999, 9, 13), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
-//        String memberCsv = "Alma,1,1999-09-13,ACTIVE,SENIOR";
-//
-//        //act
-//        Member actualMember = mapper.csvToMember(memberCsv);
-//
-//        //Assert
-//        assertEquals(expectedMember, actualMember);
-//
-//    }
+    @Test
+    void csvToMember() {
+        //Arrenge
+        FitnessSwimmer expectedMember = new FitnessSwimmer("Alma", 1, LocalDate.of(1999, 9, 13), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+        String memberCsv = "Alma,1,1999-09-13,ACTIVE,SENIOR";
 
-//    @Test
-//    void memberToCsv() {
-//        //Arrange
-//        String expectedMemberCsv = "Alma,1,1999-09-13,ACTIVE,SENIOR";
-//        Member member = new Member("Alma", 1, LocalDate.of(1999, 9,13), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
-//
-//        //Act
-//        String actualCsv = mapper.memberToCsv(member);
-//
-//        //Assert
-//        assertEquals(expectedMemberCsv, actualCsv);
-//    }
+        //act
+        Member actualMember = mapper.csvToFitnessSwimmer(memberCsv);
+
+        //Assert
+        assertEquals(expectedMember, actualMember);
+
+    }
+
+    @Test
+    void memberToCsv() {
+        //Arrange
+        String expectedMemberCsv = "Alma,1,1999-09-13,ACTIVE,SENIOR";
+        FitnessSwimmer member = new FitnessSwimmer("Alma", 1, LocalDate.of(1999, 9,13), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+
+        //Act
+        String actualCsv = mapper.memberToCsv(member);
+
+        //Assert
+        assertEquals(expectedMemberCsv, actualCsv);
+    }
 
     @Test
     void csvToFitnessSwimmer() {
