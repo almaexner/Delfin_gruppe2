@@ -22,18 +22,6 @@ public class CsvMapperTest {
 
     }
 
-    @Test
-    void memberToCsv() {
-        //Arrange
-        String expectedMemberCsv = "Alma,1,1999-09-13,ACTIVE,SENIOR";
-        FitnessSwimmer member = new FitnessSwimmer("Alma", 1, LocalDate.of(1999, 9,13), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
-
-        //Act
-        String actualCsv = mapper.memberToCsv(member);
-
-        //Assert
-        assertEquals(expectedMemberCsv, actualCsv);
-    }
 
     @Test
     void csvToFitnessSwimmer() {

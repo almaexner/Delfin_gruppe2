@@ -15,28 +15,6 @@ public class FileHandler {
         this.mapper = mapper;
     }
 
-    //Members
-    public void saveMember(List<Member> memberList) throws IOException {
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path)) {
-            for (Member member : memberList) {
-                String line = mapper.memberToCsv(member);
-                bufferedWriter.write(line);
-                bufferedWriter.newLine();
-            }
-        }
-    }
-
-//    public List<Member> loadMembers() throws IOException {
-//        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
-//            List<Member> members = new ArrayList<>();
-//            String line;
-//            while ((line = bufferedReader.readLine()) != null) {
-//                members.add(mapper.csvToMember(line));
-//            }
-//            return members;
-//        }
-//    }
-
     //Fitness swimmer
     public void saveFitnessSwimmer(List<FitnessSwimmer> fitnessSwimmers) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {

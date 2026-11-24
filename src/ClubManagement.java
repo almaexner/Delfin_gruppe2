@@ -166,21 +166,28 @@ public class ClubManagement {
     }
 
     public CompetetiveSwimmer fitnessSwimmerToCompetetiveSwimmer(int memberId) {
-        for (Member member : members) {
-            if (member.getMemberId() == memberId) {
-                if (member instanceof CompetetiveSwimmer) {
-                    return null;
-                }
-                CompetetiveSwimmer competetiveSwimmer = new CompetetiveSwimmer(member.getName(),
-                        member.getMemberId(),
-                        member.getDateOfBirth(),
-                        member.getMembershipType(),
-                        member.getSwimmerAgeType());
-                members.remove(member);
-                members.add(competetiveSwimmer);
-                return competetiveSwimmer;
+        Member member = findMemberByMemberId(memberId);
+
+        if (member == null) {
+            return null;
+        }
+
+        if (member instanceof CompetetiveSwimmer) {
+            return (CompetetiveSwimmer) member;
+        }
+        CompetetiveSwimmer competetiveSwimmer = new CompetetiveSwimmer(member.getName(),
+                member.getMemberId(),
+                member.getDateOfBirth(),
+                member.getMembershipType(),
+                member.getSwimmerAgeType());
+
+        for (MemberFee memberFee : fees) {
+            if (memberFee.getMember().getMemberId() == memberId) {
+                memberFee.setMember(competetiveSwimmer);
             }
         }
-        return null;
+        members.remove(member);
+        members.add(competetiveSwimmer);
+        return competetiveSwimmer;
     }
 }

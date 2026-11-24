@@ -33,6 +33,10 @@ public class MemberFee {
         this.paid = paid;
     }
 
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
     @Override
     public String toString() {
         String status = "Ubetalt";
