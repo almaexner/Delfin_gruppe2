@@ -190,4 +190,23 @@ public class ClubManagement {
         members.add(competetiveSwimmer);
         return competetiveSwimmer;
     }
+    public List<MemberFee> getMemberFeesPayment(LocalDate date) {
+        List<MemberFee> feesPayment = new ArrayList<>();
+
+        for (MemberFee memberFee : fees) {
+            if (memberFee.isPaid() && memberFee.getDueDate().isBefore(date)) {
+                feesPayment.add(memberFee);
+            }
+        }
+        return feesPayment;
+    }
+
+    public int expectedIncome() {
+        int expectedIncome = 0;
+
+        for (MemberFee memberFee : fees) {
+            expectedIncome = expectedIncome + memberFee.getFee();
+        }
+        return expectedIncome;
+    }
 }

@@ -184,6 +184,18 @@ public class UserInterface {
         }
     }
 
+    public void showMemberFeesPayment() {
+        List<MemberFee> feesPayment = clubManagement.getMemberFeesPayment(LocalDate.now());
+
+        if (feesPayment.isEmpty()) {
+            IO.println("no income.");
+            return;
+        }
+        for (MemberFee memberFee : feesPayment ) {
+            IO.println(feesPayment);
+        }
+    }
+
     private void createMember() {
         String name = IO.readln("Indtast navn: ");
         int memberId = clubManagement.getNewMemberId();
