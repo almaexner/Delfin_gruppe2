@@ -5,9 +5,11 @@ import java.util.List;
 public class ClubManagement {
     private List<Member> members = new ArrayList<>();
     private List<MemberFee> fees = new ArrayList<>();
+    private Team juniorTeam = new Team("JuniorTeam", SwimmerAgeType.JUNIOR);
+    private Team seniorTeam = new Team("SeniorTeam", SwimmerAgeType.SENIOR);
 
-    public ClubManagement() {
-    }
+   // public ClubManagement() {
+   // }
 
     public void addFee(MemberFee memberFee) {
         fees.add(memberFee);
@@ -189,5 +191,31 @@ public class ClubManagement {
         members.remove(member);
         members.add(competetiveSwimmer);
         return competetiveSwimmer;
+    }
+
+    public void makeTeam() {
+        juniorTeam.getCompetetiveSwimmers().clear();
+        seniorTeam.getCompetetiveSwimmers().clear();
+
+        for (CompetetiveSwimmer competetiveSwimmer : getCompetetiveSwimmers()) {
+            competetiveSwimmer.setSwimmerAgeType();
+
+            if (competetiveSwimmer.getSwimmerAgeType() == SwimmerAgeType.JUNIOR) {
+                juniorTeam.addSwimmerToTeam(competetiveSwimmer);
+            } else seniorTeam.addSwimmerToTeam(competetiveSwimmer);
+        }
+
+        juniorTeam.sortSwimmers();
+        seniorTeam.sortSwimmers();
+    }
+
+    public Team getJuniorTeam() {
+        makeTeam();
+        return juniorTeam;
+    }
+
+    public Team getSeniorTeam() {
+        makeTeam();
+        return seniorTeam;
     }
 }
