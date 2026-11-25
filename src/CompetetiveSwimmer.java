@@ -23,7 +23,7 @@ public class CompetetiveSwimmer extends Member {
         return disciplins;
     }
 
-    public List<CompetitionResult> getCompetitionResults () {
+    public List<CompetitionResult> getCompetitionResults() {
         return competitionResults;
     }
 
@@ -31,11 +31,16 @@ public class CompetetiveSwimmer extends Member {
         return disciplinResults;
     }
 
-    public void addCompetitionResults (CompetitionResult competitionResult){
+    public void addCompetitionResults(CompetitionResult competitionResult) {
         competitionResults.add(competitionResult);
     }
 
-    public void addDisciplinResults(DisciplinResult disciplinResult){
+    public void addDisciplinResults(DisciplinResult disciplinResult) {
         disciplinResults.add(disciplinResult);
+    }
+
+    @Override
+    public String toString() {
+        return "Navn: " + getName() + " (ID: " + getMemberId() + ")\n" + "Disciplin(er): " + getDisciplins();
     }
 }
