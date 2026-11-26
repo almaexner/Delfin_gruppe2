@@ -201,6 +201,12 @@ public class ClubManagement {
         results.sort(resultComparator);
         competetiveSwimmer.setDisciplinResults(results);
     }
+    public void assignCompetitionResult(CompetetiveSwimmer competetiveSwimmer, CompetitionResult competitionResult){
+        List<CompetitionResult> results = new ArrayList<>(competetiveSwimmer.getCompetitionResults());
+        results.add(competitionResult);
+        results.sort(new CompetitionResultComparator());
+        competetiveSwimmer.setCompetitionResults(results);
+    }
     public ResultTime convertTime(String resultTime){
         String[] tokens = resultTime.split(":");
         int minutes = Integer.parseInt(tokens[0]);
