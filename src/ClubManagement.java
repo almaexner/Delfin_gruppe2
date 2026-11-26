@@ -198,7 +198,7 @@ public class ClubManagement {
         List<MemberFee> feesPayment = new ArrayList<>();
 
         for (MemberFee memberFee : fees) {
-            if (memberFee.isPaid() && memberFee.getDueDate().isBefore(date)) {
+            if (memberFee.isPaid()) {
                 feesPayment.add(memberFee);
             }
         }
