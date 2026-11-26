@@ -96,6 +96,7 @@ public class UserInterface {
                         "1. Tilføj disciplin til svømmer\n" +
                         "2. Se junior holdet\n" +
                         "3. Se senior holdet\n" +
+                        "4. Registrer ny træningstid\n" +
                         "0. Tilbage til brugermenu\n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
@@ -105,6 +106,7 @@ public class UserInterface {
                 case 1 -> addDisciplin();
                 case 2 -> showJuniorTeam();
                 case 3 -> showSeniorTeam();
+                case 4 -> createResultTime();
                 case 0 -> {
                     return;
                 }
@@ -327,7 +329,7 @@ public class UserInterface {
             return;
         }
     }
-    public void createTrainingTime(){
+    public void createResultTime(){
         int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
         CompetetiveSwimmer swimmer = clubManagement.findCompetetiveSwimmerByMemberId(memberId);
         if (swimmer == null){
@@ -347,13 +349,38 @@ public class UserInterface {
                 return;
             }
         }
-        String resultTime = IO.readln("Angiv tid for trnæningsresultatet i formatet: xx:xx:xx");
-        LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for træningsresultatet i formatet: "));
+        int choiceTrainingOrCompetition = Integer.parseInt(IO.readln("Tryk 1 for træningsresultat eller 2 for stævneresultat"));
+        if (choiceTrainingOrCompetition == 1){
+            if (swimmer.getDisciplins().contains(disciplin)) {
+                String resultTime = IO.readln("Angiv tid for trnæningsresultatet i formatet: xx:xx:xx: ");
+                LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for træningsresultatet i formatet: yyyy-mm-dd:  "));
 
-        ResultTime resultTimeConverted = clubManagement.convertTime(resultTime);
-        DisciplinResult disciplinResult = new DisciplinResult(disciplin, resultTimeConverted, dateOfResult);
-        clubManagement.assignTrainingResult(swimmer, disciplinResult);
-        IO.println("Træningsresultat tilføjet!");
+                ResultTime resultTimeConverted = clubManagement.convertTime(resultTime);
+                DisciplinResult disciplinResult = new DisciplinResult(disciplin, resultTimeConverted, dateOfResult);
+                clubManagement.assignTrainingResult(swimmer, disciplinResult);
+                IO.println("Træningsresultat tilføjet!");
+            } else {
+                IO.println("Svømmeren er ikke registreret i denne disciplin. Tilføj discplininen i hovedmenuen, for at registrere træningsresultater");
+        }
+
+        }
+        if (choiceTrainingOrCompetition == 2){
+            if (swimmer.getDisciplins().contains(disciplin)){
+                String resultTime = IO.readln("Angiv tid for stævneresultatet i formatet: xx:xx:xx: ");
+                LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for stævneresultatet i formatet: yyyy-mm-dd:  "));
+                int placement = Integer.parseInt(IO.readln("Angiv placering."));
+
+                ResultTime resultTimeConverted = clubManagement.convertTime(resultTime);
+                CompetitionResult competitionResult = new CompetitionResult(disciplin, resultTimeConverted, dateOfResult, placement);
+                clubManagement.assignCompetitionResult(swimmer, competitionResult);
+                IO.println("Stævnesresultat tilføjet!");
+            } else{
+                IO.println("Svømmeren er ikke registreret i denne disciplin. Tilføj discplininen i hovedmenuen, for at registrere stævnesresultater");
+            }
+        }
+        else {
+            IO.println("Ugyldigt input");
+        }
     }
 
     public void showDisciplinMenu(){

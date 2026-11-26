@@ -1,34 +1,27 @@
 import java.time.LocalDate;
 
-public class CompetitionResult implements Comparable<CompetitionResult> {
+public class CompetitionResult {
     private final Disciplin disciplin;
-    private final double resultTime;
+    private final ResultTime resultTime;
     private final LocalDate resultDate;
-    private final String location;
+    private final int placement;
 
-    public CompetitionResult(Disciplin disciplin, double resultTime, LocalDate resultDate, String location){
+    public CompetitionResult(Disciplin disciplin, ResultTime resultTime, LocalDate resultDate, int placement){
         this.disciplin = disciplin;
         this.resultTime = resultTime;
         this.resultDate = resultDate;
-        this.location = location;
+        this.placement = placement;
     }
     public Disciplin getDisciplin(){
         return disciplin;
     }
-    public double getResultTime(){
+    public ResultTime getResultTime(){
         return resultTime;
     }
     public LocalDate getResultDate(){
         return resultDate;
     }
-    public String getLocation(){
-        return location;
-    }
-
-    @Override
-    public int compareTo(CompetitionResult other){
-        if (this.resultTime < other.getResultTime()) return -1;
-        if (this.resultTime > other.getResultTime()) return 1;
-        return 0;
+    public int getPlacement(){
+        return placement;
     }
 }
