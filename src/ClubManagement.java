@@ -72,18 +72,6 @@ public class ClubManagement {
         return null;
     }
 
-    public FitnessSwimmer findFitnessSwimmerByMemberId(int memberId) {
-        for (Member member : members) {
-            if (member instanceof FitnessSwimmer) {
-                FitnessSwimmer fitnessSwimmer = (FitnessSwimmer) member;
-                if (fitnessSwimmer.getMemberId() == memberId) {
-                    return fitnessSwimmer;
-                }
-            }
-        }
-        return null;
-    }
-
     public List<MemberFee> getFees() {
         return fees;
     }
@@ -194,6 +182,26 @@ public class ClubManagement {
         members.add(competetiveSwimmer);
         return competetiveSwimmer;
     }
+    public List<MemberFee> getMemberFeesPayment(LocalDate date) {
+        List<MemberFee> feesPayment = new ArrayList<>();
+
+        for (MemberFee memberFee : fees) {
+            if (memberFee.isPaid()) {
+                feesPayment.add(memberFee);
+            }
+        }
+        return feesPayment;
+    }
+
+    public int expectedIncome() {
+        int expectedIncome = 0;
+
+        for (MemberFee memberFee : fees) {
+            expectedIncome = expectedIncome + memberFee.getFee();
+        }
+        return expectedIncome;
+    }
+
     public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, DisciplinResult disciplinResult){
         List<DisciplinResult> results = new ArrayList<>(competetiveSwimmer.getDisciplinResults());
         Comparator<DisciplinResult> resultComparator = new ResultTimeComparator();
