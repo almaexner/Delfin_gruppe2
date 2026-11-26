@@ -81,4 +81,60 @@ public class FileHandler {
             return fees;
         }
     }
+
+    public void saveTrainingResults(List<CompetetiveSwimmer> competetiveSwimmers) throws IOException {
+        try(BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmers) {
+                for (TrainingResult trainingResult : competetiveSwimmer.getDisciplinResults()) {
+                    writer.write(mapper.trainingResultToCsv(competetiveSwimmer, trainingResult));
+                    writer.newLine();
+                }
+            }
+        }
+    }
+
+    public void loadTrainingResults(ClubManagement clubManagement) throws IOException {
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",", -1);
+                int memberId = Integer.parseInt(tokens[1]);
+                CompetetiveSwimmer competetiveSwimmer = clubManagement.findCompetetiveSwimmerByMemberId(memberId);
+
+                if (competetiveSwimmer != null) {
+                    TrainingResult trainingResult = mapper.csvToTrainingResult(line, clubManagement);
+                    clubManagement.assignTrainingResult(competetiveSwimmer, trainingResult);
+                }
+            }
+        }
+    }
+
+    public void saveCompetitionResults(List<CompetetiveSwimmer> competetiveSwimmers) throws IOException {
+        try(BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmers) {
+                for (CompetitionResult competitionResult : competetiveSwimmer.getCompetitionResults()) {
+                    writer.write(mapper.competitionResultToCsv(competetiveSwimmer, competitionResult));
+                    writer.newLine();
+                }
+            }
+        }
+    }
+
+    public void loadCompetitionResults(ClubManagement clubManagement) throws IOException {
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",", -1);
+                int memberId = Integer.parseInt(tokens[0]);
+                CompetetiveSwimmer competetiveSwimmer = clubManagement.findCompetetiveSwimmerByMemberId(memberId);
+
+                if(competetiveSwimmer != null) {
+                    CompetitionResult competitionResult = mapper.csvToCompetitionResult(line, clubManagement);
+                    clubManagement.assignCompetitionResult(competetiveSwimmer, competitionResult);
+                }
+            }
+        }
+    }
 }

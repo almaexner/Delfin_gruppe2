@@ -9,7 +9,11 @@ public class ResultTime {
         this.milliseconds = milliseconds;
     }
     public int convertToMilliseconds(){ //1000 millisekunder på et sekund - 6000 på et minut
-        return (minutes * 6000) + (seconds * 1000) + milliseconds;
+        return (minutes * 60000) + (seconds * 1000) + milliseconds;
+    }
+
+    public String toCsv() {
+        return minutes + ":" + seconds + ":" + milliseconds;
     }
 
     @Override

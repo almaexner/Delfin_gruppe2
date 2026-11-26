@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CsvMapper {
 
@@ -70,5 +71,40 @@ public class CsvMapper {
             return null;
         }
         return new MemberFee(member, fee, dueDate, paid);
+    }
+
+    public String trainingResultToCsv(CompetetiveSwimmer competetiveSwimmer, TrainingResult trainingResult) {
+        return competetiveSwimmer.getMemberId()
+                + separator + trainingResult.getDisciplin()
+                + separator + trainingResult.getResultTime().toCsv()
+                + separator + trainingResult.getResultDate();
+    }
+
+    public TrainingResult csvToTrainingResult(String line, ClubManagement clubManagement) {
+        String[] tokens = line.split(separator, -1);
+        Disciplin disciplin = Disciplin.valueOf(tokens[1]);
+        ResultTime resultTime = clubManagement.convertTime(tokens[2]);
+        LocalDate resultDate = LocalDate.parse(tokens[3]);
+
+        return new TrainingResult(disciplin, resultTime, resultDate);
+    }
+
+    public String competitionResultToCsv(CompetetiveSwimmer competetiveSwimmer, CompetitionResult competitionResult) {
+        return competetiveSwimmer.getMemberId()
+                + separator + competitionResult.getDisciplin()
+                + separator + competitionResult.getResultTime().toCsv()
+                + separator + competitionResult.getResultDate()
+                + separator + competitionResult.getPlacement();
+    }
+
+    public CompetitionResult csvToCompetitionResult(String line, ClubManagement clubManagement) {
+        String[] tokens = line.split(separator, -1);
+
+        Disciplin disciplin = Disciplin.valueOf(tokens[1]);
+        ResultTime resultTime = clubManagement.convertTime(tokens[2]);
+        LocalDate resultDate = LocalDate.parse(tokens[3]);
+        int placement = Integer.parseInt(tokens[4]);
+
+        return new CompetitionResult(disciplin, resultTime, resultDate, placement);
     }
 }

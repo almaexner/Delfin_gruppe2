@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -6,6 +7,8 @@ public class DatabaseLoader {
     private FileHandler fitnessSwimmerFile;
     private FileHandler competetiveSwimmerFile;
     private FileHandler memberFeeFile;
+    private FileHandler trainingResultFile;
+    private FileHandler competitionResultFile;
 
     public DatabaseLoader() {
         CsvMapper mapper = new CsvMapper();
@@ -13,12 +16,16 @@ public class DatabaseLoader {
         fitnessSwimmerFile = new FileHandler(Path.of("fitnessSwimmers.csv"), mapper);
         competetiveSwimmerFile = new FileHandler(Path.of("competetiveSwimmers.csv"), mapper);
         memberFeeFile = new FileHandler(Path.of("memberFees.csv"), mapper);
+        trainingResultFile = new FileHandler(Path.of("trainingResults.csv"), mapper);
+        competitionResultFile = new FileHandler(Path.of("competitionResults.csv"), mapper);
     }
 
     public void createFiles() throws IOException {
         createFileIfNotExists(Path.of("fitnessSwimmers.csv"));
         createFileIfNotExists(Path.of("competetiveSwimmers.csv"));
         createFileIfNotExists(Path.of("memberFees.csv"));
+        createFileIfNotExists(Path.of("trainingResults.csv"));
+        createFileIfNotExists(Path.of("competitionResults.csv"));
     }
 
     public void createFileIfNotExists(Path path) throws IOException {
@@ -42,11 +49,16 @@ public class DatabaseLoader {
         for (MemberFee memberFee : memberFeeFile.loadMemberFees(clubManagement)) {
             clubManagement.addFee(memberFee);
         }
+
+        trainingResultFile.loadTrainingResults(clubManagement);
+        competitionResultFile.loadCompetitionResults(clubManagement);
     }
 
     public void saveData(ClubManagement clubManagement) throws IOException {
         fitnessSwimmerFile.saveFitnessSwimmer(clubManagement.getFitnessSwimmers());
         competetiveSwimmerFile.saveCompetetiveSwimmer(clubManagement.getCompetetiveSwimmers());
         memberFeeFile.saveMemberFee(clubManagement.getFees());
+        trainingResultFile.saveTrainingResults(clubManagement.getCompetetiveSwimmers());
+        competitionResultFile.saveCompetitionResults(clubManagement.getCompetetiveSwimmers());
     }
 }

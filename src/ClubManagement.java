@@ -181,6 +181,7 @@ public class ClubManagement {
         members.add(competetiveSwimmer);
         return competetiveSwimmer;
     }
+
     public List<MemberFee> getMemberFeesPayment(LocalDate date) {
         List<MemberFee> feesPayment = new ArrayList<>();
 
@@ -201,20 +202,22 @@ public class ClubManagement {
         return expectedIncome;
     }
 
-    public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, TrainingResult trainingResult){
+    public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, TrainingResult trainingResult) {
         List<TrainingResult> results = new ArrayList<>(competetiveSwimmer.getDisciplinResults());
         Comparator<TrainingResult> resultComparator = new TrainingResultComparator();
         results.add(trainingResult);
         results.sort(resultComparator);
         competetiveSwimmer.setDisciplinResults(results);
     }
-    public void assignCompetitionResult(CompetetiveSwimmer competetiveSwimmer, CompetitionResult competitionResult){
+
+    public void assignCompetitionResult(CompetetiveSwimmer competetiveSwimmer, CompetitionResult competitionResult) {
         List<CompetitionResult> results = new ArrayList<>(competetiveSwimmer.getCompetitionResults());
         results.add(competitionResult);
         results.sort(new CompetitionResultComparator());
         competetiveSwimmer.setCompetitionResults(results);
     }
-    public ResultTime convertTime(String resultTime){
+
+    public ResultTime convertTime(String resultTime) {
         String[] tokens = resultTime.split(":");
         int minutes = Integer.parseInt(tokens[0]);
         int seconds = Integer.parseInt(tokens[1]);
@@ -247,5 +250,41 @@ public class ClubManagement {
     public Team getSeniorTeam() {
         makeTeam();
         return seniorTeam;
+    }
+
+    public List<CompetetiveSwimmer> getTopTrainingSwimmers(Team team, Disciplin disciplin, int numberOfSwimmers) {
+        List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
+        List<CompetetiveSwimmer> topSwimmers = new ArrayList<>();
+
+        for (CompetetiveSwimmer competetiveSwimmer : team.getCompetetiveSwimmers()) {
+            if (competetiveSwimmer.getBestTrainingTime(disciplin) != null) {
+                competetiveSwimmers.add(competetiveSwimmer);
+            }
+        }
+
+        competetiveSwimmers.sort(new SwimmerTrainingTimeComparator(disciplin));
+
+        for (int i = 0; i < numberOfSwimmers && i < competetiveSwimmers.size(); i++) {
+            topSwimmers.add(competetiveSwimmers.get(i));
+        }
+        return topSwimmers;
+    }
+
+    public List<CompetetiveSwimmer> getTopCompetitionSwimmers(Team team, Disciplin disciplin, int numberOfSwimmers) {
+        List<CompetetiveSwimmer> competetiveSwimmers = new ArrayList<>();
+        List<CompetetiveSwimmer> topSwimmers = new ArrayList<>();
+
+        for (CompetetiveSwimmer competetiveSwimmer : team.getCompetetiveSwimmers()) {
+            if (competetiveSwimmer.getBestCompetitionTime(disciplin) != null) {
+                competetiveSwimmers.add(competetiveSwimmer);
+            }
+        }
+
+        competetiveSwimmers.sort(new SwimmerCompetitionTimeComparator(disciplin));
+
+        for (int i = 0; i < numberOfSwimmers && i < competetiveSwimmers.size(); i++) {
+            topSwimmers.add(competetiveSwimmers.get(i));
+        }
+        return topSwimmers;
     }
 }

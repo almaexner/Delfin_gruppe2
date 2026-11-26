@@ -97,6 +97,8 @@ public class UserInterface {
                         "2. Se junior holdet\n" +
                         "3. Se senior holdet\n" +
                         "4. Registrer ny træningstid\n" +
+                        "5. Se bedste træningstider\n" +
+                        "6. Se bedste stævnetider\n" +
                         "0. Tilbage til brugermenu\n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
@@ -107,6 +109,8 @@ public class UserInterface {
                 case 2 -> showJuniorTeam();
                 case 3 -> showSeniorTeam();
                 case 4 -> createResultTime();
+                case 5 -> showTopTrainingSwimmers();
+                case 6 -> showTopCompetitionSwimmers();
                 case 0 -> {
                     return;
                 }
@@ -199,7 +203,7 @@ public class UserInterface {
             IO.println("Ingen betalte regninger.");
             return;
         }
-        for (MemberFee memberFee : feesPayment ) {
+        for (MemberFee memberFee : feesPayment) {
             IO.println(memberFee);
         }
     }
@@ -299,58 +303,27 @@ public class UserInterface {
             }
         }
 
-        while (true) {
-            String userInput = IO.readln("Vælg disciplin: \n" +
-                    "1. Butterfly\n" +
-                    "2. Crawl\n" +
-                    "3. Rygcrawl\n" +
-                    "4. Brystsvømning");
-            Disciplin disciplin;
+        Disciplin disciplin = chooseDisciplin();
 
-            if (userInput.equals("1")) {
-                disciplin = Disciplin.BUTTERFLY;
-            } else if (userInput.equals("2")) {
-                disciplin = Disciplin.CRAWL;
-            } else if (userInput.equals("3")) {
-                disciplin = Disciplin.BACK_CRAWL;
-            } else if (userInput.equals("4")) {
-                disciplin = Disciplin.BREASTSTROKE;
-            } else {
-                IO.println("Ugyldigt valg.");
-                continue;
-            }
-
-            boolean added = competetiveSwimmer.addDisciplin(disciplin);
-            if (added) {
-                IO.println("Disciplinen er tilføjet.");
-            } else {
-                IO.println("Svømmeren har allerede denne disciplin.");
-            }
-            return;
+        boolean added = competetiveSwimmer.addDisciplin(disciplin);
+        if (added) {
+            IO.println("Disciplinen er tilføjet.");
+        } else {
+            IO.println("Svømmeren har allerede denne disciplin.");
         }
     }
-    public void createResultTime(){
+
+    public void createResultTime() {
         int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
         CompetetiveSwimmer swimmer = clubManagement.findCompetetiveSwimmerByMemberId(memberId);
-        if (swimmer == null){
+        if (swimmer == null) {
             IO.println("Medlem ikke fundet.");
             return;
         }
-        showDisciplinMenu();
-        int disciplinTemp = Integer.parseInt(IO.readln("Angiv diciplin: "));
-        Disciplin disciplin;
-        switch(disciplinTemp){
-            case 1 -> disciplin = Disciplin.BUTTERFLY;
-            case 2 -> disciplin = Disciplin.CRAWL;
-            case 3 -> disciplin = Disciplin.BACK_CRAWL;
-            case 4 -> disciplin = Disciplin.BREASTSTROKE;
-            default -> {
-                IO.println("Angiv et gyldigt tal.");
-                return;
-            }
-        }
+
+        Disciplin disciplin = chooseDisciplin();
         int choiceTrainingOrCompetition = Integer.parseInt(IO.readln("Tryk 1 for træningsresultat eller 2 for stævneresultat"));
-        if (choiceTrainingOrCompetition == 1){
+        if (choiceTrainingOrCompetition == 1) {
             if (swimmer.getDisciplins().contains(disciplin)) {
                 String resultTime = IO.readln("Angiv tid for trnæningsresultatet i formatet: xx:xx:xx: ");
                 LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for træningsresultatet i formatet: yyyy-mm-dd:  "));
@@ -361,11 +334,11 @@ public class UserInterface {
                 IO.println("Træningsresultat tilføjet!");
             } else {
                 IO.println("Svømmeren er ikke registreret i denne disciplin. Tilføj discplininen i hovedmenuen, for at registrere træningsresultater");
-        }
+            }
 
         }
-        if (choiceTrainingOrCompetition == 2){
-            if (swimmer.getDisciplins().contains(disciplin)){
+        else if (choiceTrainingOrCompetition == 2) {
+            if (swimmer.getDisciplins().contains(disciplin)) {
                 String resultTime = IO.readln("Angiv tid for stævneresultatet i formatet: xx:xx:xx: ");
                 LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for stævneresultatet i formatet: yyyy-mm-dd:  "));
                 int placement = Integer.parseInt(IO.readln("Angiv placering."));
@@ -374,23 +347,68 @@ public class UserInterface {
                 CompetitionResult competitionResult = new CompetitionResult(disciplin, resultTimeConverted, dateOfResult, placement);
                 clubManagement.assignCompetitionResult(swimmer, competitionResult);
                 IO.println("Stævnesresultat tilføjet!");
-            } else{
+            } else {
                 IO.println("Svømmeren er ikke registreret i denne disciplin. Tilføj discplininen i hovedmenuen, for at registrere stævnesresultater");
             }
-        }
-        else {
+        } else {
             IO.println("Ugyldigt input");
         }
     }
 
-    public void showDisciplinMenu(){
-        IO.println("------------");
-        IO.println("1 - Butterfly");
-        IO.println("2 - Crawl");
-        IO.println("3 - Rygcrawl");
-        IO.println("4 - Brystsvømning");
-        IO.println("------------");
+    public Disciplin chooseDisciplin() {
+        while (true) {
+            int userInput;
+            try {
+                userInput = Integer.parseInt(IO.readln("Vælg disciplin:\n" +
+                        "1. Butterfly\n" +
+                        "2. Crawl\n" +
+                        "3. Rygcrawl\n" +
+                        "4. Brystsvømning\n"));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
 
+            switch (userInput) {
+                case 1 -> {
+                    return Disciplin.BUTTERFLY;
+                }
+                case 2 -> {
+                    return Disciplin.CRAWL;
+                }
+                case 3 -> {
+                    return Disciplin.BACK_CRAWL;
+                }
+                case 4 -> {
+                    return Disciplin.BREASTSTROKE;
+                }
+                default -> IO.println("Ugyldigt valg. Prøv igen.");
+            }
+        }
+    }
+
+    public Team chooseTeam() {
+        while (true) {
+            int userInput;
+
+            try {
+                userInput = Integer.parseInt(IO.readln("Vælg hold: \n" +
+                        "1. Juniorhold \n" +
+                        "2. Seniorhold\n"));
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+                continue;
+            }
+            switch (userInput) {
+                case 1 -> {
+                    return clubManagement.getJuniorTeam();
+                }
+                case 2 -> {
+                    return clubManagement.getSeniorTeam();
+                }
+                default -> IO.println("Ugyldigt valg. Prøv igen.");
+            }
+        }
     }
 
     public void showJuniorTeam() {
@@ -402,7 +420,7 @@ public class UserInterface {
             return;
         }
 
-        for (CompetetiveSwimmer competetiveSwimmer : clubManagement.getCompetetiveSwimmers()) {
+        for (CompetetiveSwimmer competetiveSwimmer : team.getCompetetiveSwimmers()) {
             IO.println(competetiveSwimmer);
         }
     }
@@ -416,8 +434,65 @@ public class UserInterface {
             return;
         }
 
-        for (CompetetiveSwimmer competetiveSwimmer : clubManagement.getCompetetiveSwimmers()) {
+        for (CompetetiveSwimmer competetiveSwimmer : team.getCompetetiveSwimmers()) {
             IO.println(competetiveSwimmer);
+        }
+    }
+
+    public int chooseNumberOfSwimmers() {
+        while (true) {
+            try {
+                int numberOfSwimmers = Integer.parseInt(IO.readln("Hvor mange svømmere vil du se?"));
+
+                if (numberOfSwimmers > 0) {
+                    return numberOfSwimmers;
+                }
+                IO.println("Antallet skal være større end 0.");
+            } catch (NumberFormatException e) {
+                IO.println("Ugyldigt input. Indtast et tal.");
+            }
+        }
+    }
+
+    public void showTopTrainingSwimmers() {
+        Team team = chooseTeam();
+        Disciplin disciplin = chooseDisciplin();
+        int numberOfSwimmers = chooseNumberOfSwimmers();
+
+        List<CompetetiveSwimmer> competetiveSwimmers = clubManagement.getTopTrainingSwimmers(team, disciplin, numberOfSwimmers);
+
+        if (competetiveSwimmers.isEmpty()) {
+            IO.println("Der er ingen træningstider i denne disciplin på holdet.");
+            return;
+        }
+        IO.println(team.getTeamName() + " - " + disciplin);
+
+        int rank = 1;
+        for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmers) {
+            IO.println(rank + ". " + competetiveSwimmer.getName() + " (ID " + competetiveSwimmer.getMemberId() + ")");
+            IO.println(competetiveSwimmer.getBestTrainingTime(disciplin));
+            rank++;
+        }
+    }
+
+    public void showTopCompetitionSwimmers() {
+        Team team = chooseTeam();
+        Disciplin disciplin = chooseDisciplin();
+        int numberOfSwimmers = chooseNumberOfSwimmers();
+
+        List<CompetetiveSwimmer> competetiveSwimmers = clubManagement.getTopCompetitionSwimmers(team, disciplin, numberOfSwimmers);
+
+        if (competetiveSwimmers.isEmpty()) {
+            IO.println("Der er ingen konkurrencetider for denne disciplin på holdet.");
+            return;
+        }
+        IO.println(team.getTeamName() + " - " + disciplin);
+
+        int rank = 1;
+        for (CompetetiveSwimmer competetiveSwimmer : competetiveSwimmers) {
+            IO.println(rank + ". " + competetiveSwimmer.getName() + " (ID " + competetiveSwimmer.getMemberId() + ")");
+            IO.println(competetiveSwimmer.getBestCompetitionTime(disciplin));
+            rank++;
         }
     }
 }
