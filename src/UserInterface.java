@@ -68,6 +68,7 @@ public class UserInterface {
                 userInput = Integer.parseInt(IO.readln("\nIndtast dit valg: \n" +
                         "1. Se regninger\n" +
                         "2. Medlemmer i restance\n" +
+                        "3. Se betalte regninger\n" +
                         "0. Tilbage til brugermenu \n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
@@ -76,6 +77,7 @@ public class UserInterface {
             switch (userInput) {
                 case 1 -> showFees();
                 case 2 -> showOverdueFees();
+                case 3 -> showMemberFeesPayment();
                 case 0 -> {
                     return;
                 }
@@ -192,11 +194,11 @@ public class UserInterface {
         List<MemberFee> feesPayment = clubManagement.getMemberFeesPayment(LocalDate.now());
 
         if (feesPayment.isEmpty()) {
-            IO.println("no income.");
+            IO.println("Ingen betalte regninger.");
             return;
         }
         for (MemberFee memberFee : feesPayment ) {
-            IO.println(feesPayment);
+            IO.println(memberFee);
         }
     }
 

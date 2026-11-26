@@ -27,7 +27,6 @@ public class CompetetiveSwimmer extends Member {
         this.disciplinResults = disciplinResults;
     }
 
-    public List<CompetitionResult> getCompetitionResults () {
     public List<CompetitionResult> getCompetitionResults() {
         return competitionResults;
     }
