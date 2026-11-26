@@ -33,7 +33,26 @@ public class FileHandlerTest {
                 new FitnessSwimmer("Jørgen Leth 3", 3, LocalDate.of(2002,1,1), MembershipType.PASSIVE, SwimmerAgeType.SENIOR)
         );
     }
+    @Test
+    public void testSaveMembersToFile() throws IOException {
+        //Act
 
+        fileHandler.saveFitnessSwimmer(fitnessSwimmers);
+
+        //Assert
+        assertTrue(Files.exists(path));
+        assertTrue(Files.size(path) > 0);
+    }
+    @Test
+    public void testLoadMembersFromFile() throws IOException {
+        //Act
+        fileHandler.saveFitnessSwimmer(fitnessSwimmers);
+        List<FitnessSwimmer> membersFromFile = fileHandler.loadFitnessSwimmer();
+
+        //Assert
+        assertTrue(Files.exists(path));
+        assertFalse(membersFromFile.isEmpty());
+    }
     @Test
     public void testLoadFitnessSwimmerFromFile() throws IOException {
         //Arrange

@@ -1,11 +1,11 @@
 import java.time.LocalDate;
 
-public class DisciplinResult implements Comparable<DisciplinResult>{
+public class DisciplinResult {
     Disciplin disciplin;
-    double resultTime;
+    ResultTime resultTime;
     LocalDate resultDate;
 
-    public DisciplinResult(Disciplin disciplin, double resultTime, LocalDate resultDate){
+    public DisciplinResult(Disciplin disciplin, ResultTime resultTime, LocalDate resultDate){
         this.disciplin = disciplin;
         this.resultTime = resultTime;
         this.resultDate = resultDate;
@@ -13,7 +13,7 @@ public class DisciplinResult implements Comparable<DisciplinResult>{
     public Disciplin getDisciplin(){
         return disciplin;
     }
-    public double getResultTime(){
+    public ResultTime getResultTime(){
         return resultTime;
     }
     public LocalDate getResultDate(){
@@ -25,11 +25,6 @@ public class DisciplinResult implements Comparable<DisciplinResult>{
                 + "Disciplin: " + this.disciplin + "\n"
                 + "Dato: " + this.resultDate;
     }
-    @Override
-    public int compareTo(DisciplinResult other){
-        if (this.resultTime < other.getResultTime()) return -1;
-        if (this.resultTime > other.getResultTime()) return 1;
-        return 0;
-    }
+
 }
 
