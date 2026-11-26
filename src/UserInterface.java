@@ -356,8 +356,8 @@ public class UserInterface {
                 LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for træningsresultatet i formatet: yyyy-mm-dd:  "));
 
                 ResultTime resultTimeConverted = clubManagement.convertTime(resultTime);
-                DisciplinResult disciplinResult = new DisciplinResult(disciplin, resultTimeConverted, dateOfResult);
-                clubManagement.assignTrainingResult(swimmer, disciplinResult);
+                TrainingResult trainingResult = new TrainingResult(disciplin, resultTimeConverted, dateOfResult);
+                clubManagement.assignTrainingResult(swimmer, trainingResult);
                 IO.println("Træningsresultat tilføjet!");
             } else {
                 IO.println("Svømmeren er ikke registreret i denne disciplin. Tilføj discplininen i hovedmenuen, for at registrere træningsresultater");

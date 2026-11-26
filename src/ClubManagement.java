@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -202,10 +201,10 @@ public class ClubManagement {
         return expectedIncome;
     }
 
-    public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, DisciplinResult disciplinResult){
-        List<DisciplinResult> results = new ArrayList<>(competetiveSwimmer.getDisciplinResults());
-        Comparator<DisciplinResult> resultComparator = new ResultTimeComparator();
-        results.add(disciplinResult);
+    public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, TrainingResult trainingResult){
+        List<TrainingResult> results = new ArrayList<>(competetiveSwimmer.getDisciplinResults());
+        Comparator<TrainingResult> resultComparator = new TrainingResultComparator();
+        results.add(trainingResult);
         results.sort(resultComparator);
         competetiveSwimmer.setDisciplinResults(results);
     }

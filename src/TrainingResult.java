@@ -1,11 +1,11 @@
 import java.time.LocalDate;
 
-public class DisciplinResult {
+public class TrainingResult {
     Disciplin disciplin;
     ResultTime resultTime;
     LocalDate resultDate;
 
-    public DisciplinResult(Disciplin disciplin, ResultTime resultTime, LocalDate resultDate){
+    public TrainingResult(Disciplin disciplin, ResultTime resultTime, LocalDate resultDate){
         this.disciplin = disciplin;
         this.resultTime = resultTime;
         this.resultDate = resultDate;

@@ -5,7 +5,7 @@ import java.util.List;
 public class CompetetiveSwimmer extends Member {
     private List<Disciplin> disciplins = new ArrayList<>();
     private List<CompetitionResult> competitionResults = new ArrayList<>();
-    private List<DisciplinResult> disciplinResults = new ArrayList<>();
+    private List<TrainingResult> trainingResults = new ArrayList<>();
 
     public CompetetiveSwimmer(String name, int memberId, LocalDate dateOfBirth, MembershipType membershipType, SwimmerAgeType swimmerAgeType) {
         super(name, memberId, dateOfBirth, membershipType, swimmerAgeType);
@@ -23,8 +23,8 @@ public class CompetetiveSwimmer extends Member {
         return disciplins;
     }
 
-    public void setDisciplinResults(List<DisciplinResult> disciplinResults) {
-        this.disciplinResults = disciplinResults;
+    public void setDisciplinResults(List<TrainingResult> trainingResults) {
+        this.trainingResults = trainingResults;
     }
     public void setCompetitionResults(List<CompetitionResult> competitionResults){
         this.competitionResults = competitionResults;
@@ -33,8 +33,8 @@ public class CompetetiveSwimmer extends Member {
         return competitionResults;
     }
 
-    public List<DisciplinResult> getDisciplinResults() {
-        return disciplinResults;
+    public List<TrainingResult> getDisciplinResults() {
+        return trainingResults;
     }
 
 
