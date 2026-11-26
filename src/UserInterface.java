@@ -14,7 +14,7 @@ public class UserInterface {
         while (isRunning) {
             int userInput;
             try {
-                userInput = Integer.parseInt(IO.readln("Vælg bruger: \n" +
+                userInput = Integer.parseInt(IO.readln("\nVælg bruger: \n" +
                         "1. Ledelse\n" +
                         "2. Kasserer\n" +
                         "3. Træner\n" +
@@ -41,7 +41,7 @@ public class UserInterface {
             int userInput;
 
             try {
-                userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
+                userInput = Integer.parseInt(IO.readln("\nIndtast dit valg: \n" +
                         "1. Se alle medlemmer \n" +
                         "0. Tilbage til brugermenu \n"));
             } catch (NumberFormatException e) {
@@ -65,7 +65,7 @@ public class UserInterface {
             int userInput;
 
             try {
-                userInput = Integer.parseInt(IO.readln("Indtast dit valg: \n" +
+                userInput = Integer.parseInt(IO.readln("\nIndtast dit valg: \n" +
                         "1. Se regninger\n" +
                         "2. Medlemmer i restance\n" +
                         "0. Tilbage til brugermenu \n"));
@@ -90,16 +90,19 @@ public class UserInterface {
         while (isRunning) {
             int userInput;
             try {
-                userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
+                userInput = Integer.parseInt(IO.readln("\nIndtast dit valg:\n" +
                         "1. Tilføj disciplin til svømmer\n" +
-                        "0. Tilbage til brugermenu"));
+                        "2. Se junior holdet\n" +
+                        "3. Se senior holdet\n" +
+                        "0. Tilbage til brugermenu\n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
                 continue;
             }
             switch (userInput) {
                 case 1 -> addDisciplin();
-                case 2 -> createTrainingTime();
+                case 2 -> showJuniorTeam();
+                case 3 -> showSeniorTeam();
                 case 0 -> {
                     return;
                 }
@@ -114,7 +117,7 @@ public class UserInterface {
         while (isRunning) {
             int userInput;
             try {
-                userInput = Integer.parseInt(IO.readln("Indtast dit valg:\n" +
+                userInput = Integer.parseInt(IO.readln("\nIndtast dit valg:\n" +
                         "1. Opret ny svømmer\n" +
                         "2. Ændrer medlemsstatus (aktiv/passiv)\n" +
                         "3. Betal kontigent\n" +
@@ -347,6 +350,34 @@ public class UserInterface {
         IO.println("4 - Brystsvømning");
         IO.println("------------");
 
+    }
+
+    public void showJuniorTeam() {
+        Team team = clubManagement.getJuniorTeam();
+        IO.println(team.getTeamName());
+
+        if (team.getCompetetiveSwimmers().isEmpty()) {
+            IO.println("Der er ingen svømmere på junior holdet");
+            return;
+        }
+
+        for (CompetetiveSwimmer competetiveSwimmer : clubManagement.getCompetetiveSwimmers()) {
+            IO.println(competetiveSwimmer);
+        }
+    }
+
+    public void showSeniorTeam() {
+        Team team = clubManagement.getSeniorTeam();
+        IO.println(team.getTeamName());
+
+        if (team.getCompetetiveSwimmers().isEmpty()) {
+            IO.println("Der er ingen svømmere på senior holdet");
+            return;
+        }
+
+        for (CompetetiveSwimmer competetiveSwimmer : clubManagement.getCompetetiveSwimmers()) {
+            IO.println(competetiveSwimmer);
+        }
     }
 }
 
