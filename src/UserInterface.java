@@ -99,6 +99,7 @@ public class UserInterface {
             }
             switch (userInput) {
                 case 1 -> addDisciplin();
+                case 2 -> createTrainingTime();
                 case 0 -> {
                     return;
                 }
@@ -308,6 +309,44 @@ public class UserInterface {
             }
             return;
         }
+    }
+    public void createTrainingTime(){
+        int memberId = Integer.parseInt(IO.readln("Angiv medlemsnummer: "));
+        CompetetiveSwimmer swimmer = clubManagement.findCompetetiveSwimmerByMemberId(memberId);
+        if (swimmer == null){
+            IO.println("Medlem ikke fundet.");
+            return;
+        }
+        showDisciplinMenu();
+        int disciplinTemp = Integer.parseInt(IO.readln("Angiv diciplin: "));
+        Disciplin disciplin;
+        switch(disciplinTemp){
+            case 1 -> disciplin = Disciplin.BUTTERFLY;
+            case 2 -> disciplin = Disciplin.CRAWL;
+            case 3 -> disciplin = Disciplin.BACK_CRAWL;
+            case 4 -> disciplin = Disciplin.BREASTSTROKE;
+            default -> {
+                IO.println("Angiv et gyldigt tal.");
+                return;
+            }
+        }
+        String resultTime = IO.readln("Angiv tid for trnæningsresultatet i formatet: xx:xx:xx");
+        LocalDate dateOfResult = LocalDate.parse(IO.readln("Angiv dato for træningsresultatet i formatet: "));
+
+        ResultTime resultTimeConverted = clubManagement.convertTime(resultTime);
+        DisciplinResult disciplinResult = new DisciplinResult(disciplin, resultTimeConverted, dateOfResult);
+        clubManagement.assignTrainingResult(swimmer, disciplinResult);
+        IO.println("Træningsresultat tilføjet!");
+    }
+
+    public void showDisciplinMenu(){
+        IO.println("------------");
+        IO.println("1 - Butterfly");
+        IO.println("2 - Crawl");
+        IO.println("3 - Rygcrawl");
+        IO.println("4 - Brystsvømning");
+        IO.println("------------");
+
     }
 }
 

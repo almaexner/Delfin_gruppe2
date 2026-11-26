@@ -224,4 +224,14 @@ public class ClubManagementTest {
         assertEquals(2, member2.getMemberId());
         assertEquals(3, member3.getMemberId());
     }
+//    @Test
+//    void testCreateAndAssignTrainingResult(){
+//        //Arrange
+//        ClubManagement clubManagement = new ClubManagement();
+//        UserInterface ui = new UserInterface(clubManagement);
+//        CompetetiveSwimmer swimmer = new CompetetiveSwimmer("Jørgen Leth", clubManagement.getNewMemberId(), LocalDate.of(2000, 1,1), MembershipType.ACTIVE, SwimmerAgeType.SENIOR);
+//        //Act
+//        Disciplin disciplin = Disciplin.CRAWL;
+//        double resultTime =
+//    }
 }

@@ -1,5 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ClubManagement {
@@ -189,5 +191,20 @@ public class ClubManagement {
         members.remove(member);
         members.add(competetiveSwimmer);
         return competetiveSwimmer;
+    }
+    public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, DisciplinResult disciplinResult){
+        List<DisciplinResult> results = new ArrayList<>(competetiveSwimmer.getDisciplinResults());
+        Comparator<DisciplinResult> resultComparator = new ResultTimeComparator();
+        results.add(disciplinResult);
+        results.sort(resultComparator);
+        competetiveSwimmer.setDisciplinResults(results);
+    }
+    public ResultTime convertTime(String resultTime){
+        String[] tokens = resultTime.split(":");
+        int minutes = Integer.parseInt(tokens[0]);
+        int seconds = Integer.parseInt(tokens[1]);
+        int milliseconds = Integer.parseInt(tokens[2]);
+
+        return new ResultTime(minutes, seconds, milliseconds);
     }
 }
