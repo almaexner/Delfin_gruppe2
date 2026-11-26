@@ -72,18 +72,6 @@ public class ClubManagement {
         return null;
     }
 
-    public FitnessSwimmer findFitnessSwimmerByMemberId(int memberId) {
-        for (Member member : members) {
-            if (member instanceof FitnessSwimmer) {
-                FitnessSwimmer fitnessSwimmer = (FitnessSwimmer) member;
-                if (fitnessSwimmer.getMemberId() == memberId) {
-                    return fitnessSwimmer;
-                }
-            }
-        }
-        return null;
-    }
-
     public List<MemberFee> getFees() {
         return fees;
     }
@@ -213,6 +201,7 @@ public class ClubManagement {
         }
         return expectedIncome;
     }
+
     public void assignTrainingResult(CompetetiveSwimmer competetiveSwimmer, DisciplinResult disciplinResult){
         List<DisciplinResult> results = new ArrayList<>(competetiveSwimmer.getDisciplinResults());
         Comparator<DisciplinResult> resultComparator = new ResultTimeComparator();
@@ -220,6 +209,7 @@ public class ClubManagement {
         results.sort(resultComparator);
         competetiveSwimmer.setDisciplinResults(results);
     }
+
     public ResultTime convertTime(String resultTime){
         String[] tokens = resultTime.split(":");
         int minutes = Integer.parseInt(tokens[0]);
