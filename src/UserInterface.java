@@ -69,6 +69,7 @@ public class UserInterface {
                         "1. Se regninger\n" +
                         "2. Medlemmer i restance\n" +
                         "3. Se betalte regninger\n" +
+                        "4. se forventet indkomst\n" +
                         "0. Tilbage til brugermenu \n"));
             } catch (NumberFormatException e) {
                 IO.println("Ugyldigt input. Indtast et tal.");
@@ -78,6 +79,7 @@ public class UserInterface {
                 case 1 -> showFees();
                 case 2 -> showOverdueFees();
                 case 3 -> showMemberFeesPayment();
+                case 4 -> ShowexpectedIncome();
                 case 0 -> {
                     return;
                 }
@@ -206,6 +208,12 @@ public class UserInterface {
         for (MemberFee memberFee : feesPayment) {
             IO.println(memberFee);
         }
+    }
+
+    public void ShowexpectedIncome() {
+        int expectedIncome = clubManagement.expectedIncome();
+
+        IO.println(expectedIncome);
     }
 
     private void createMember() {
