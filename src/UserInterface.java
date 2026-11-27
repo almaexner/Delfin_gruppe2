@@ -79,7 +79,7 @@ public class UserInterface {
                 case 1 -> showFees();
                 case 2 -> showOverdueFees();
                 case 3 -> showMemberFeesPayment();
-                case 4 -> ShowexpectedIncome();
+                case 4 -> showExpectedIncome();
                 case 0 -> {
                     return;
                 }
@@ -210,7 +210,7 @@ public class UserInterface {
         }
     }
 
-    public void ShowexpectedIncome() {
+    public void showExpectedIncome() {
         int expectedIncome = clubManagement.expectedIncome();
 
         IO.println(expectedIncome);
