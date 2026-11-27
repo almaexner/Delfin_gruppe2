@@ -1,6 +1,8 @@
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Scanner;
 
 public class UserInterface {
     private ClubManagement clubManagement;
@@ -209,7 +211,11 @@ public class UserInterface {
     }
 
     private void createMember() {
-        String name = IO.readln("Indtast navn: ");
+        IO.println("Angiv medlemmets navn: ");
+        //Scanner bruges for at kunne bruge UTF-8. Dette tager højde for fremmede sprog eks. æ ø å.
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+        String name = scanner.nextLine();
+        IO.println(name);
         int memberId = clubManagement.getNewMemberId();
         IO.println("Dit medlems ID er: " + memberId);
         LocalDate birthday;
