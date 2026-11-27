@@ -219,11 +219,15 @@ public class ClubManagement {
 
     public ResultTime convertTime(String resultTime) {
         String[] tokens = resultTime.split(":");
+        if (tokens.length == 3){
         int minutes = Integer.parseInt(tokens[0]);
         int seconds = Integer.parseInt(tokens[1]);
         int milliseconds = Integer.parseInt(tokens[2]);
 
         return new ResultTime(minutes, seconds, milliseconds);
+    } else {
+            return null;
+        }
     }
 
     public void makeTeam() {

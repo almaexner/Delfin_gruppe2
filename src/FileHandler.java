@@ -1,6 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -46,6 +45,7 @@ public class FileHandler {
             }
         }
     }
+
 
     public List<CompetetiveSwimmer> loadCompetetiveSwimmers() throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(path)) {
